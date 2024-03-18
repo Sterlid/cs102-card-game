@@ -6,6 +6,8 @@ Feel free to make changes (as long as the game still works as intended), and try
 
 Some changes we could add:
 - Replayability
+- Random Events/Powerups
+- Betting System
 
 **notes: 
 - I haven't made compile.bat and run.bat, you run the game from App.java.
