@@ -8,6 +8,7 @@ Some changes we could add:
 - Replayability
 - Random Events/Powerups
 - Betting System
+- Split classes into seperate files for easier understanding
 
 **notes: 
 - I haven't made compile.bat and run.bat, you run the game from App.java.
