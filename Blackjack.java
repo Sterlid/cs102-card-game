@@ -156,6 +156,7 @@ public class Blackjack {
             playerCards.add(card);
             if(reducePlayerAce() > 21){
                 hitButton.setEnabled(false);
+                stayButton.setEnabled(false);
             }
             gamePanel.repaint();
           }  
