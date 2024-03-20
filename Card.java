@@ -1,34 +1,34 @@
 import java.util.ArrayList;
 
 public class Card {
-    String number;
+    String value;
     String suits;
 
-    Card(String number, String suits) {
-        this.number = number;
+    Card(String value, String suits) {
+        this.value = value;
         this.suits = suits;
     }
 
     // Overriding toString, makes the deck print the card in the format of
-    // number|suits
+    // value|suits
     public String toString() {
-        return number + "" + suits;
+        return value + "" + suits;
     }
 
     // Method to get the value of current card
     public int getValue() {
-        if ("ajqk".contains(number)) {
-            if (number == "a") {
+        if ("ajqk".contains(value)) {
+            if (value == "a") {
                 return 11;
             }
             return 10;
         }
-        return Integer.parseInt(number);
+        return Integer.parseInt(value);
     }
 
     // Method to know if the compared card is an ace
     public boolean isAce() {
-        return number == "a";
+        return value == "a";
     }
     //Method to get the current image's path
     public String getImagePath(){

@@ -73,6 +73,11 @@ public class Player {
     }
     public void setFreshHand(){
         this.hand = new ArrayList<Card>();
+        banBan = false;
+        banLuck = false;
+        sum = 0;
+        aceCount =0;
+        pictureCount = 0;
     }
   
 }
