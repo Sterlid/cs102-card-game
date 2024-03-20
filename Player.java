@@ -71,7 +71,7 @@ public class Player {
     public void setPictureCount(int pictureCount) {
         this.pictureCount = pictureCount;
     }
-    public void setFreshDeck(){
+    public void setFreshHand(){
         this.hand = new ArrayList<Card>();
     }
   
