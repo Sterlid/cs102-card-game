@@ -41,13 +41,13 @@ public class BlackJack {
                 if (!stayButton.isEnabled()) {
                     hiddenCardImg = new ImageIcon(getClass().getResource(hiddenCard.getImagePath())).getImage();
                 }
-                g.drawImage(hiddenCardImg, 20, 20, cardWidth, cardHeight, null);
+                g.drawImage(hiddenCardImg, 20, 100, cardWidth, cardHeight, null);
 
                 // draw dealer's hand
                 for (int i = 0; i < d.getHand().size(); i++) {
                     Card card = d.getHand().get(i);
                     Image cardImg = new ImageIcon(getClass().getResource(card.getImagePath())).getImage();
-                    g.drawImage(cardImg, cardWidth + 25 + (cardWidth + 5) * i, 20, cardWidth, cardHeight, null);
+                    g.drawImage(cardImg, cardWidth + 25 + (cardWidth + 5) * i, 100, cardWidth, cardHeight, null);
                 }
 
                 // draw player's hand
@@ -57,12 +57,14 @@ public class BlackJack {
                     Card card = p.getHand().get(i);
                     System.out.println(card);
                     Image cardImg = new ImageIcon(getClass().getResource(card.getImagePath())).getImage();
-                    g.drawImage(cardImg, 20 + (cardWidth + 5) * i, 320, cardWidth, cardHeight, null);
+                    g.drawImage(cardImg, 20 + (cardWidth + 5) * i, 275, cardWidth, cardHeight, null);
                     System.out.println("Print Player Card: " + i);
                     System.out.println("Player's Current Score: " + p.getSum());
                     
                 }
-                String playerHandCount = "Player Hand Count:" + p.getSum();
+                String playerHandCount = "You: " + p.getSum();
+                String dealerHandCount = "Dealer: " + d.getSum();
+
                 if (!stayButton.isEnabled()) {
                     // dealerSum = reduceDealerAce();
                     d.setSum(reduceDealerAce());
@@ -72,11 +74,10 @@ public class BlackJack {
                     System.out.println("Player sum = " + p.getSum());
 
                     String message = "";
-                    String dealerHandCount = "Dealer Hand Count:" + d.getSum();
-
+                
                     if (p.getSum() > 21) {
-                        message = "You Lose!";
-                    } else if (reduceDealerAce() > 21) {
+                        message = "BUST!";
+                    } else if (d.getSum() > 21) {
                         message = "You Win!";
                     }
                     // both you and dealer <= 21
@@ -84,22 +85,24 @@ public class BlackJack {
                         message = "Tie!";
 
                     } else if (p.getSum() > d.getSum()) {
-                        message = "You Win!";
+                        message = "WIN!";
                     } else if (p.getSum() < d.getSum()) {
-                        message = "You Lose!";
+                        message = "Dealer Win!";
                     }
 
-                    g.setFont(new Font("Helvetica", Font.PLAIN, 40));
+                    g.setFont(new Font("Times New Roman", Font.PLAIN, 40));
                     g.setColor(Color.WHITE);
-                    g.drawString(message, 50, 250);
-                    g.setFont(new Font("Helvetica", Font.PLAIN, 30));
+                    g.drawString(message, 275, 550);
+
+                    g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
                     g.setColor(Color.WHITE);
-                    g.drawString(dealerHandCount, 290, 250);
+                    g.drawString(dealerHandCount, 20, 75);
 
                 }
-                g.setFont(new Font("Helvetica", Font.PLAIN, 30));
+
+                g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
                 g.setColor(Color.WHITE);
-                g.drawString(playerHandCount, 290, 550);
+                g.drawString(playerHandCount, 20, 475);
     
 
             } catch (Exception e) {
