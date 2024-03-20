@@ -5,10 +5,10 @@ I recommend watching it as libraries that prof didn't teach were used (libraries
 Feel free to make changes (as long as the game still works as intended), and try not to push changes that makes vscode mad.
 
 Some changes we could add:
-- Replayability
+- Replayability (DONE)
 - Random Events/Powerups
-- Betting System
-- --Split classes into seperate files for easier understanding--
+- Betting System 
+- Split classes into seperate files for easier understanding (DONE)
 
 **notes: 
 - I haven't made compile.bat and run.bat, you run the game from App.java.
