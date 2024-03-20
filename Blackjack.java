@@ -6,11 +6,11 @@ import javax.swing.*;
 
 public class BlackJack {
 
-    ArrayList<Card> deck;
-    Random random = new Random(); // shuffle deck
+    private ArrayList<Card> deck;
+    private Random random = new Random(); // shuffle deck
 
     // dealer
-    Card hiddenCard;
+    private Card hiddenCard;
     // ArrayList<Card> dealerHand;
     // int dealerSum;
     // int dealerAceCount;
@@ -162,15 +162,7 @@ public class BlackJack {
                 hitButton.setEnabled(false);
                 stayButton.setEnabled(false);
                 NewRoundButton.setVisible(true);
-                while (d.getSum() < 17) {
-                    Card card = deck.remove(deck.size() - 1);
-                    d.setSum(d.getSum() + card.getValue());
-                    // dealerSum += card.getValue();
-                    // dealerAceCount += card.isAce() ? 1 : 0;
-                    d.setAceCount(d.getAceCount() + (card.isAce() ? 1 : 0));
-                    reduceDealerAce();
-                    d.getHand().add(card);
-                }
+                drawDealerCards();
                 gamePanel.repaint();
             }
         });
@@ -301,5 +293,15 @@ public class BlackJack {
         }
         return d.getSum();
     }
-
+    public void drawDealerCards(){
+    while (d.getSum() < 17) {
+        Card card = deck.remove(deck.size() - 1);
+        d.setSum(d.getSum() + card.getValue());
+        // dealerSum += card.getValue();
+        // dealerAceCount += card.isAce() ? 1 : 0;
+        d.setAceCount(d.getAceCount() + (card.isAce() ? 1 : 0));
+        reduceDealerAce();
+        d.getHand().add(card);
+    }
+}
 }
