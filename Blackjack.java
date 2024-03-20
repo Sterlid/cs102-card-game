@@ -196,11 +196,11 @@ public class BlackJack {
         buildDeck();
         shuffleDeck();
 
-        d.setFreshDeck();
+        d.setFreshHand();
         d.setSum(0);
         d.setAceCount(0);
 
-        p.setFreshDeck();
+        p.setFreshHand();
         p.setSum(0);
         p.setAceCount(0);
 
