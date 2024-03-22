@@ -184,7 +184,9 @@ public class Blackjack {
 
         d.setFreshHand();
         p.setFreshHand();
-
+        p.setSum(0);
+        d.setSum(0);
+        
         hiddenCard = deck.remove(deck.size() - 1); // remove card at last index
         d.setSum(d.getSum() + hiddenCard.getValue());
         d.setAceCount(d.getAceCount() + (hiddenCard.isAce() ? 1 : 0));
