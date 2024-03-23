@@ -25,7 +25,7 @@ public class Blackjack {
     JFrame frame = new JFrame("Black Jack");
     JPanel gamePanel = new JPanel() {
         @Override
-        public void paintComponent(Graphics g) {
+       public void paintComponent(Graphics g) {
             super.paintComponent(g);
 
             try {
@@ -34,13 +34,13 @@ public class Blackjack {
                 if (!stayButton.isEnabled()) {
                     hiddenCardImg = new ImageIcon(getClass().getResource(hiddenCard.getImagePath())).getImage();
                 }
-                g.drawImage(hiddenCardImg, 20, 100, cardWidth, cardHeight, null);
+                g.drawImage(hiddenCardImg, 20, 185, cardWidth, cardHeight, null);
 
                 // draw dealer's hand
                 for (int i = 0; i < d.getHand().size(); i++) {
                     Card card = d.getHand().get(i);
                     Image cardImg = new ImageIcon(getClass().getResource(card.getImagePath())).getImage();
-                    g.drawImage(cardImg, cardWidth + 25 + (cardWidth + 5) * i, 100, cardWidth, cardHeight, null);
+                    g.drawImage(cardImg, cardWidth + 25 + (cardWidth + 5) * i, 185, cardWidth, cardHeight, null);
                 }
 
                 // draw player's hand
@@ -48,11 +48,12 @@ public class Blackjack {
                     // System.out.println("Player draws a card");
                     // System.err.println("Player's Sum is " + p.getSum());
                     Card card = p.getHand().get(i);
-                    // System.out.println("Player draws " + card);
+                    System.out.println(card);
                     Image cardImg = new ImageIcon(getClass().getResource(card.getImagePath())).getImage();
-                    g.drawImage(cardImg, 20 + (cardWidth + 5) * i, 275, cardWidth, cardHeight, null);
-                    // System.out.println("Player's Current Score: " + p.getSum());
-
+                    g.drawImage(cardImg, 20 + (cardWidth + 5) * i, 350, cardWidth, cardHeight, null);
+                    System.out.println("Print Player Card: " + i);
+                    System.out.println("Player's Current Score: " + p.getSum());
+                    
                 }
                 String playerHandCount = "You: " + p.getSum();
                 String dealerHandCount = "Dealer: " + d.getSum();
@@ -65,8 +66,8 @@ public class Blackjack {
                     System.out.println("Dealer sum = " + d.getSum());
                     System.out.println("Player sum = " + p.getSum());
 
-                    String message = "";    
-
+                    String message = "";
+                
                     if (p.getSum() > 21) {
                         message = "BUST!";
                     } else if (d.getSum() > 21) {
@@ -84,23 +85,29 @@ public class Blackjack {
 
                     g.setFont(new Font("Times New Roman", Font.PLAIN, 40));
                     g.setColor(Color.WHITE);
-                    g.drawString(message, 275, 550);
+                    g.drawString(message, 295, 625);
 
                     g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
                     g.setColor(Color.WHITE);
-                    g.drawString(dealerHandCount, 20, 75);
+                    g.drawString(dealerHandCount, 20, 155);
 
                 }
 
                 g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
                 g.setColor(Color.WHITE);
-                g.drawString(playerHandCount, 20, 475);
+                g.drawString(playerHandCount, 20, 550);
+    
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     };
+    
+   //Start panel
+    JButton startButton = new JButton("START");
+
+    //Game panel
     JPanel buttonPanel = new JPanel();
     JButton hitButton = new JButton("Hit");
     JButton stayButton = new JButton("Stay");
@@ -127,6 +134,25 @@ public class Blackjack {
         NewRoundButton.setVisible(false);
         buttonPanel.setVisible(true);
         frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        titlePanel.setLayout(new BorderLayout());
+        titlePanel.setBackground(new Color(53, 101, 77));
+        frame.add(titlePanel);
+        titlePanel.setVisible(true);
+        buttonPanel.setVisible(false);
+        titlePanel.add(startButton, BorderLayout.SOUTH);
+
+        startButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startButton.setVisible(false);
+                titlePanel.setVisible(false);
+
+                startGame();
+                gamePanel.setVisible(true);
+                buttonPanel.setVisible(true);
+                gamePanel.repaint();
+            }
+        });
 
         hitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
