@@ -19,7 +19,6 @@ public class Blackjack {
     Player p = new Player();
     Player d = new Player();
 
-
     boolean beforeBet;
     // window
     int boardWidth;
@@ -29,13 +28,13 @@ public class Blackjack {
     int cardHeight;
     // boolean firstRound = true;
 
-    //Betting indicator
-    int betAmount;  
+    // Betting indicator
+    int betAmount;
     String result;
 
-    //Hand sum
-    String playerHandSum;
-    String dealerHandSum;
+    // Hand sum
+    // String playerHandSum;
+    // String dealerHandSum;
     String playerMoney;
     // UI Buttons
     JPanel buttonPanel = new JPanel();
@@ -49,16 +48,16 @@ public class Blackjack {
     JPanel gamePanel;
 
     { // Logic of start game, for later use
-        // JPanel startGamePanel = new JPanel(){
-        // @Override
-        // public void paintComponent(Graphics g){
-        // super.paintComponent(g);
-        // Graphics2D g2d = (Graphics2D) g;
-        // Font fnt0 = new Font("Times New Roman", Font.BOLD, 50);
-        // Font fnt1 = new Font("Times New Roman", Font.BOLD, 25);
-        // g.setFont(fnt0);
-        // g.setColor(Color.WHITE);
-        // g.drawString("Blackjack", 230, 150);
+      // JPanel startGamePanel = new JPanel(){
+      // @Override
+      // public void paintComponent(Graphics g){
+      // super.paintComponent(g);
+      // Graphics2D g2d = (Graphics2D) g;
+      // Font fnt0 = new Font("Times New Roman", Font.BOLD, 50);
+      // Font fnt1 = new Font("Times New Roman", Font.BOLD, 25);
+      // g.setFont(fnt0);
+      // g.setColor(Color.WHITE);
+      // g.drawString("Blackjack", 230, 150);
 
         // g.setFont(fnt0);
         // g.setColor(Color.WHITE);
@@ -85,63 +84,63 @@ public class Blackjack {
                 super.paintComponent(g);
 
                 try {
-                    playerHandSum = "You: " + p.getSum();
-                    dealerHandSum = "Dealer: " + d.getSum();
+                    // playerHandSum = "You: " + p.getSum();
+                    // dealerHandSum = "Dealer: " + d.getSum();
                     result = "Enter a bet: ";
                     playerMoney = "Money remaining: " + p.getMoney();
-                    if(!beforeBet){
-                    // draw dealer's hand
-                    for (int i = 0; i < d.getHand().size(); i++) {
-                        Card card = d.getHand().get(i);
-                        String imagePath = card.getImagePath();
+                    if (!beforeBet) {
+                        // draw dealer's hand
+                        for (int i = 0; i < d.getHand().size(); i++) {
+                            Card card = d.getHand().get(i);
+                            String imagePath = card.getImagePath();
 
-                        Image cardImage = new ImageIcon(imagePath).getImage();
-                        g.drawImage(cardImage, cardWidth + 25 + (cardWidth + 5) * i, 185, cardWidth, cardHeight, null);
-                        result = "Current bet: " + betAmount;
-                    }
+                            Image cardImage = new ImageIcon(imagePath).getImage();
+                            g.drawImage(cardImage, cardWidth + 25 + (cardWidth + 5) * i, 185, cardWidth, cardHeight,
+                                    null);
+                            result = "Current bet: " + betAmount;
+                        }
 
-                    // draw player's hand
-                    for (int i = 0; i < p.getHand().size(); i++) {
-                        // System.out.println("Player draws a card");
-                        // System.err.println("Player's Sum is " + p.getSum());
-                        Card card = p.getHand().get(i);
-                        String imagePath = card.getImagePath();
+                        // draw player's hand
+                        for (int i = 0; i < p.getHand().size(); i++) {
+                            // System.out.println("Player draws a card");
+                            // System.err.println("Player's Sum is " + p.getSum());
+                            Card card = p.getHand().get(i);
+                            String imagePath = card.getImagePath();
 
-                        Image cardImage = new ImageIcon(imagePath).getImage();
+                            Image cardImage = new ImageIcon(imagePath).getImage();
 
-                        g.drawImage(cardImage, 20 + (cardWidth + 5) * i, 350, cardWidth, cardHeight, null);
-                        System.out.println("Print Player Card: " + i);
-                        System.out.println("Player's Current Score: " + p.getSum());
+                            g.drawImage(cardImage, 20 + (cardWidth + 5) * i, 350, cardWidth, cardHeight, null);
+                            System.out.println("Print Player Card: " + i);
+                            System.out.println("Player's Current Score: " + p.getSum());
 
-                    }
-                    
+                        }
 
-                    // draw hidden card
-                    String hiddenImagePath = "images/cards/back.gif";
-                    Image hiddenCardImg = new ImageIcon(hiddenImagePath).getImage();
+                        // draw hidden card
+                        String hiddenImagePath = "images/cards/back.gif";
+                        Image hiddenCardImg = new ImageIcon(hiddenImagePath).getImage();
 
-                    if (!stayButton.isEnabled()) {
-                        hiddenImagePath = hiddenCard.getImagePath();
-                        hiddenCardImg = new ImageIcon(hiddenImagePath).getImage();
-                    }
+                        if (!stayButton.isEnabled()) {
+                            hiddenImagePath = hiddenCard.getImagePath();
+                            hiddenCardImg = new ImageIcon(hiddenImagePath).getImage();
+                        }
 
-                    g.drawImage(hiddenCardImg, 20, 185, cardWidth, cardHeight, null);
-                    if (!hitButton.isEnabled() && !beforeBet) {
-                        d.setSum(recountPlayerSum(d));
-                        p.setSum(recountPlayerSum(p));
-                        System.out.println("Dealer sum = " + d.getSum());
-                        System.out.println("Player sum = " + p.getSum());
-    
-                        result = determineWinner();
-                        playerMoney = "Money remaining: " + p.getMoney();
+                        g.drawImage(hiddenCardImg, 20, 185, cardWidth, cardHeight, null);
+                        if (!hitButton.isEnabled() && !beforeBet) {
+                            d.setSum(recountPlayerSum(d));
+                            p.setSum(recountPlayerSum(p));
+                            System.out.println("Dealer sum = " + d.getSum());
+                            System.out.println("Player sum = " + p.getSum());
+
+                            result = determineWinner();
+                            playerMoney = "Money remaining: " + p.getMoney();
+                            g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
+                            g.setColor(Color.WHITE);
+                            g.drawString(Integer.toString(d.getSum()), 20, 155);
+                        }
                         g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
                         g.setColor(Color.WHITE);
-                        g.drawString(dealerHandSum, 20, 155);
+                        g.drawString(Integer.toString(p.getSum()), 20, 550);
                     }
-                    g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-                    g.setColor(Color.WHITE);
-                    g.drawString(playerHandSum, 20, 550);
-                }
                     g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
                     g.setColor(Color.WHITE);
                     g.drawString(result, 310, 550);
@@ -157,10 +156,20 @@ public class Blackjack {
     }
 
     public String determineWinner() {
-        if (p.getSum() > 21) {
+        if (d.getSum() < 16){
+            drawDealerCards();
+            System.out.println("Dealer's Hand: " + hiddenCard + " " + d.getHand()  + "\tDealer's Sum: " + d.getSum());
+        }
+        if (p.getSum() > 21 && d.getSum() > 21){
+            p.setMoney(p.getMoney() + betAmount);
+            return "Tie! Both player and dealer bust!";
+        }
+
+        else if (p.getSum() > 21) {
             return "BUST! Dealer Win!";
         } else if (d.getSum() > 21) {
             p.setMoney(p.getMoney() + betAmount * 2);
+            
             
             return "You Win!";
         }
@@ -176,11 +185,9 @@ public class Blackjack {
             return "Dealer Win!";
         }
         return "";
-    }   
+    }
 
-
-
-    public void preGameBet(){
+    public void preGameBet() {
         beforeBet = true;
         buttonPanel.add(betInput);
         buttonPanel.add(confirmButton);
@@ -201,7 +208,7 @@ public class Blackjack {
 
         hitButton.setEnabled(false);
         stayButton.setEnabled(false);
-        
+
         gamePanel.setVisible(true);
     }
 
@@ -220,7 +227,7 @@ public class Blackjack {
 
     }
 
-    public void showNewButtons(){
+    public void showNewButtons() {
         hitButton.setVisible(false);
         stayButton.setVisible(false);
         hitButton.setEnabled(false);
@@ -232,21 +239,21 @@ public class Blackjack {
     public void createListeners() {
 
         confirmButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                try{
-                betAmount = Integer.parseInt(betInput.getText());
-                if(betAmount < 0 || betAmount > p.getMoney()){
-                    JOptionPane.showMessageDialog(frame, "Please enter a valid number.");
-                    return;
-                }
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    betAmount = Integer.parseInt(betInput.getText());
+                    if (betAmount < 0 || betAmount > p.getMoney()) {
+                        JOptionPane.showMessageDialog(frame, "Please enter a valid number.");
+                        return;
+                    }
 
-                p.setMoney(p.getMoney() - betAmount);
-                confirmButton.setEnabled(false);
-                hitButton.setEnabled(true);
-                stayButton.setEnabled(true);
-                beforeBet = false;
-                gamePanel.repaint();
-                } catch (NumberFormatException a){
+                    p.setMoney(p.getMoney() - betAmount);
+                    confirmButton.setEnabled(false);
+                    hitButton.setEnabled(true);
+                    stayButton.setEnabled(true);
+                    beforeBet = false;
+                    gamePanel.repaint();
+                } catch (NumberFormatException a) {
                     JOptionPane.showMessageDialog(frame, "Please enter a number.");
                 }
             }
@@ -287,8 +294,6 @@ public class Blackjack {
             }
         });
     }
-
-
 
     public void restartGame() {
         beforeBet = true;
@@ -349,8 +354,6 @@ public class Blackjack {
         System.out.println("hand: " + p.getHand() + " Sum: " + p.getSum() + " Ace count:" + p.getAceCount());
 
     }
-
-
 
     public int recountPlayerSum(Player p) {
         while (p.getSum() > 21 && p.getAceCount() > 0) {
