@@ -162,7 +162,7 @@ public class Blackjack {
         }
         if (p.getSum() > 21 && d.getSum() > 21){
             p.setMoney(p.getMoney() + betAmount);
-            return "Tie! Both player and dealer bust!";
+            return "Tie!";
         }
 
         else if (p.getSum() > 21) {
@@ -316,11 +316,7 @@ public class Blackjack {
         // Boolean to not redraw the start screen
         // firstRound = false;
         d.setFreshHand();
-        d.setAceCount(0);
-        d.setSum(0);
         p.setFreshHand();
-        p.setAceCount(0);
-        p.setSum(0);
 
         hiddenCard = deck.remove(deck.size() - 1); // remove card at last index
         d.setSum(d.getSum() + hiddenCard.getValue());

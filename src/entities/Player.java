@@ -58,6 +58,8 @@ public class Player {
 
     public void setFreshHand(){
         this.hand = new ArrayList<Card>();
+        aceCount = 0;
+        sum = 0;
     }
   
     public int getMoney(){
