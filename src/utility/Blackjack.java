@@ -84,8 +84,8 @@ public class Blackjack {
                 super.paintComponent(g);
 
                 try {
-                    // playerHandSum = "You: " + p.getSum();
-                    // dealerHandSum = "Dealer: " + d.getSum();
+                    playerHandSum = "You: " + p.getSum();
+                    dealerHandSum = "Dealer: " + d.getSum();
                     result = "Enter a bet: ";
                     playerMoney = "Money remaining: " + p.getMoney();
                     if (!beforeBet) {
@@ -133,26 +133,27 @@ public class Blackjack {
 
                             result = determineWinner();
                             playerMoney = "Money remaining: " + p.getMoney();
-                            g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-                            g.setColor(Color.WHITE);
-                            g.drawString(Integer.toString(d.getSum()), 20, 155);
-                        }
-                        g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-                        g.setColor(Color.WHITE);
-                        g.drawString(Integer.toString(p.getSum()), 20, 550);
+                            
+                        writeText(g, 30, 20, 155, dealerHandSum);
                     }
-                    g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-                    g.setColor(Color.WHITE);
-                    g.drawString(result, 310, 550);
+                    writeText(g, 30, 20, 550, playerHandSum);
+                    
+                }
+                    writeText(g, 30, 310, 550, result);
 
-                    g.setFont(new Font("Times New Roman", Font.PLAIN, 30));
-                    g.setColor(Color.WHITE);
-                    g.drawString(playerMoney, 310, 570);
+                    writeText(g, 20, 310, 580, playerMoney);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         };
+    }
+
+        //Text is in Times New Roman by default as a standard
+    public void writeText(Graphics g, int fontSize, int x, int y, String text){
+        g.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));
+        g.setColor(Color.WHITE);
+        g.drawString(text, x, y);
     }
 
     public String determineWinner() {
