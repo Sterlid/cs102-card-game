@@ -18,7 +18,7 @@ public class Blackjack {
     // Instantiate player & dealer
     Player p = new Player();
     Player d = new Player();
-    
+
     boolean beforeBet;
     // window
     int boardWidth;
@@ -33,8 +33,8 @@ public class Blackjack {
     String result;
 
     // Hand sum
-    String playerHandSum;
-    String dealerHandSum;
+    // String playerHandSum;
+    // String dealerHandSum;
     String playerMoney;
     // UI Buttons
     JPanel buttonPanel = new JPanel();
@@ -42,7 +42,7 @@ public class Blackjack {
     JButton confirmButton = new JButton("Confirm");
     JButton hitButton = new JButton("Hit");
     JButton stayButton = new JButton("Stay");
-    JButton newRoundButton = new JButton("New Round Button");
+    JButton newRoundButton = new JButton("Try Again");
     JButton exitButton = new JButton("Exit Game");
     JFrame frame = new JFrame("Black Jack");
     JPanel gamePanel;
@@ -84,20 +84,20 @@ public class Blackjack {
                 super.paintComponent(g);
 
                 try {
-                    playerHandSum = "You: " + p.getSum();
-                    dealerHandSum = "Dealer: " + d.getSum();
+                    // playerHandSum = "You: " + p.getSum();
+                    // dealerHandSum = "Dealer: " + d.getSum();
                     result = "Enter a bet: ";
-                    playerMoney = "Money remaining: " + p.getMoney();
+                    playerMoney = "Balance: $" + p.getMoney();
                     if (!beforeBet) {
-                        
                         // draw dealer's hand
                         for (int i = 0; i < d.getHand().size(); i++) {
                             Card card = d.getHand().get(i);
                             String imagePath = card.getImagePath();
 
                             Image cardImage = new ImageIcon(imagePath).getImage();
-                            g.drawImage(cardImage, cardWidth + 25 + (cardWidth + 5) * i, 185, cardWidth, cardHeight, null);
-                            result = "Current bet: " + betAmount;
+                            g.drawImage(cardImage, cardWidth + 25 + (cardWidth + 5) * i, 185, cardWidth, cardHeight,
+                                    null);
+                            result = "Current bet: $" + betAmount;
                         }
 
                         // draw player's hand
@@ -132,16 +132,23 @@ public class Blackjack {
                             System.out.println("Player sum = " + p.getSum());
 
                             result = determineWinner();
-                            playerMoney = "Money remaining: " + p.getMoney();
-                            
-                        writeText(g, 30, 20, 155, dealerHandSum);
-                    }
-                    writeText(g, 30, 20, 550, playerHandSum);
-                    
-                }
-                    writeText(g, 30, 310, 550, result);
+                            playerMoney = "Balance: $" + p.getMoney();
+                            g.setFont(new Font("Arial", Font.PLAIN, 30));
+                            g.setColor(Color.WHITE);
+                            g.drawString(Integer.toString(d.getSum()), 20, 155);
+                        }
 
-                    writeText(g, 20, 310, 580, playerMoney);
+                        g.setFont(new Font("Arial", Font.PLAIN, 30));
+                        g.setColor(Color.WHITE);
+                        g.drawString(Integer.toString(p.getSum()), 20, 550);
+                    }
+                    g.setFont(new Font("Calibri", Font.PLAIN, 30));
+                    g.setColor(Color.WHITE);
+                    g.drawString(result, 310, 550);
+
+                    g.setFont(new Font("Calibri", Font.PLAIN, 30));
+                    g.setColor(Color.WHITE);
+                    g.drawString(playerMoney, 310, 575);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -149,35 +156,33 @@ public class Blackjack {
         };
     }
 
-        //Text is in Times New Roman by default as a standard
-    public void writeText(Graphics g, int fontSize, int x, int y, String text){
-        g.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));
-        g.setColor(Color.WHITE);
-        g.drawString(text, x, y);
-    }
-
     public String determineWinner() {
+        if (d.getSum() < 16){
+            drawDealerCards();
+            System.out.println("Dealer's Hand: " + hiddenCard + " " + d.getHand()  + "\tDealer's Sum: " + d.getSum());
+        }
         if (p.getSum() > 21 && d.getSum() > 21){
             p.setMoney(p.getMoney() + betAmount);
             return "Tie!";
         }
+
         else if (p.getSum() > 21) {
             return "BUST! Dealer Win!";
-        }
-        else if (d.getSum() > 21 || p.getHand().size() == 5) {
+        } else if (d.getSum() > 21) {
             p.setMoney(p.getMoney() + betAmount * 2);
+            
+            
             return "You Win!";
         }
         // both you and dealer <= 21
         else if (p.getSum() == d.getSum()) {
             p.setMoney(p.getMoney() + betAmount);
             return "Tie!";
-        } 
-        else if (p.getSum() > d.getSum()) {
+
+        } else if (p.getSum() > d.getSum()) {
             p.setMoney(p.getMoney() + betAmount * 2);
             return "You Win!";
-        } 
-        else if (p.getSum() < d.getSum()) {
+        } else if (p.getSum() < d.getSum()) {
             return "Dealer Win!";
         }
         return "";
@@ -232,7 +237,7 @@ public class Blackjack {
         exitButton.setVisible(true);
     }
 
-    public void createActionListeners() {
+    public void createListeners() {
 
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -262,7 +267,6 @@ public class Blackjack {
                 p.setAceCount(p.getAceCount() + (card.isAce() ? 1 : 0));
                 p.getHand().add(card);
                 if (recountPlayerSum(p) >= 21 || p.getHand().size() == 5) { // A + 2 + J --> 1 + 2 + J
-                    drawDealerCards();
                     showNewButtons();
                 }
                 gamePanel.repaint();
@@ -295,12 +299,6 @@ public class Blackjack {
     public void restartGame() {
         beforeBet = true;
         confirmButton.setEnabled(true);
-        d.setFreshHand();
-        p.setFreshHand();
-        d.setSum(0);
-        p.setSum(0);
-        p.setAceCount(0);
-        d.setAceCount(0);
         startGame();
 
         newRoundButton.setVisible(false);
@@ -310,12 +308,16 @@ public class Blackjack {
         buttonPanel.add(exitButton);
         exitButton.setVisible(false);
         gamePanel.repaint();
-    }
 
-    public void startOfRoundCards(Player p, ArrayList<Card> deck, Card card) {
-        p.setSum(p.getSum() + card.getValue());
-        p.setAceCount(d.getAceCount() + (card.isAce() ? 1 : 0));
-        p.getHand().add(card);
+        if(p.getMoney() == 0){
+            int option = JOptionPane.showConfirmDialog(frame, "You have no more money! Do you want to restart?", "No more money!", JOptionPane.YES_NO_OPTION);
+            if(option == JOptionPane.YES_OPTION){
+                p.setMoney(5000);
+                restartGame();
+            } else {
+                System.exit(0);
+            }
+        }
     }
 
     public void startGame() {
@@ -324,15 +326,17 @@ public class Blackjack {
 
         // Boolean to not redraw the start screen
         // firstRound = false;
+        d.setFreshHand();
+        p.setFreshHand();
 
-
-        hiddenCard = deck.remove(deck.size() - 1); // remove card at top of deck
+        hiddenCard = deck.remove(deck.size() - 1); // remove card at last index
         d.setSum(d.getSum() + hiddenCard.getValue());
         d.setAceCount(d.getAceCount() + (hiddenCard.isAce() ? 1 : 0));
 
-        //Dealer's normal cards
         Card card = deck.remove(deck.size() - 1);
-        startOfRoundCards(d, deck, card);
+        d.setSum(d.getSum() + card.getValue());
+        d.setAceCount(d.getAceCount() + (card.isAce() ? 1 : 0));
+        d.getHand().add(card);
 
         System.out.println("DEALER:");
         System.out.println(hiddenCard);
@@ -343,10 +347,12 @@ public class Blackjack {
 
         for (int i = 0; i < 2; i++) {
             card = deck.remove(deck.size() - 1);
-            startOfRoundCards(p, deck, card);   
-            if (p.getAceCount() == 2 && p.getHand().size() == 2) {
+            p.setSum(p.getSum() + card.getValue());
+            p.setAceCount(p.getAceCount() + (card.isAce() ? 1 : 0));
+            if (p.getAceCount() > 2 && p.getHand().size() == 2) {
                 p.setSum(12);
             }
+            p.getHand().add(card);
             System.out.println(card + " added to player's hand");
             System.out.println("Player's hand size is: " + p.getHand().size());
         }
@@ -369,13 +375,14 @@ public class Blackjack {
     public void drawDealerCards() {
         while (d.getSum() < 17) {
             Card card = deck.remove(deck.size() - 1);
-            startOfRoundCards(d, deck, card);   
+            d.setSum(d.getSum() + card.getValue());
+            d.setAceCount(d.getAceCount() + (card.isAce() ? 1 : 0));
             recountPlayerSum(d);
-
+            d.getHand().add(card);
         }
     }
 
-    public Blackjack() {
+    public BlackJack() {
         boardWidth = 680;
         boardHeight = boardWidth;
 
@@ -388,7 +395,7 @@ public class Blackjack {
         initializeFrame();
         initializeGamePanel();
         initializeButtons();
-        createActionListeners();
+        createListeners();
     }
 
 }
