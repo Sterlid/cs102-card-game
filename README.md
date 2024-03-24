@@ -1,8 +1,7 @@
 This is the java black jack card game.  The BlackJack java file works as intended, although I just copied off the video without thinking too much. 
 Source video link: https://www.youtube.com/watch?v=GMdgjaDdOjI&ab_channel=KennyYipCoding
 
-I recommend watching it as libraries that prof didn't teach were used (libraries that can take images, make windows, etc.). 
-Feel free to make changes (as long as the game still works as intended), and try not to push changes that makes vscode mad.
+We're almost at submission deadline.
 
 Some changes we could add:
 - Replayability (DONE)
