@@ -33,8 +33,8 @@ public class Blackjack {
     String result;
 
     // Hand sum
-    // String playerHandSum;
-    // String dealerHandSum;
+    String playerHandSum;
+    String dealerHandSum;
     String playerMoney;
     // UI Buttons
     JPanel buttonPanel = new JPanel();
