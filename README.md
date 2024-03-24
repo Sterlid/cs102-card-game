@@ -7,9 +7,12 @@ Feel free to make changes (as long as the game still works as intended), and try
 Some changes we could add:
 - Replayability (DONE)
 - Random Events/Powerups
-- Betting System 
+- Betting System (DONE)
 - Split classes into seperate files for easier understanding (DONE)
-
+- ANIME GIRL
+- START GAME MENU
+  
 **notes: 
-- I haven't made compile.bat and run.bat, you run the game from App.java.
-- Download the card source files provided by prof, extract the one named [cards20], and rename the folder as src. Put that folder in the SAME folder as the App.java and BlackJack.java and it should work.
+- I have packaged the files.
+- PLEASE PUT YOUR CARDS INTO THE FOLER DIRECTORY images/cards AND RUN USING ONLY COMPILE.BAT AND RUN.BAT OR ELSE IT WON'T WORK!
+

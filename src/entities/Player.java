@@ -1,7 +1,6 @@
+package entities;
 import java.util.ArrayList;
 
-// dealer extends player
-// dealer has a hiddenCard attribute
 public class Player {
     ArrayList<Card> hand;
     boolean banBan;
@@ -9,6 +8,7 @@ public class Player {
     int sum;
     int aceCount;
     int pictureCount;
+    int money;
 
     public Player(){
         hand = new ArrayList<Card>();
@@ -17,24 +17,8 @@ public class Player {
         sum = 0;
         aceCount =0;
         pictureCount = 0;
+        money = 5000;
     }
-
-    // public Player(ArrayList <Card> hand){
-    //     this.hand = hand;
-    //     for (Card c: hand){
-    //         if (c.isAce()){
-    //             aceCount++;
-    //         } else if (c.isPicture()){
-    //             pictureCount++;
-    //         }
-    //     }
-    //     if (hand.size()==2 && aceCount==2){
-    //         banBan = true;
-    //     } else if (hand.size()==2 && aceCount==1 && pictureCount ==1){
-    //         System.out.println("Ban Luck!!!");
-    //         banLuck = true;
-    //     } 
-    // }
 
     public ArrayList<Card> getHand() {
         return hand;
@@ -71,8 +55,16 @@ public class Player {
     public void setPictureCount(int pictureCount) {
         this.pictureCount = pictureCount;
     }
+
     public void setFreshHand(){
         this.hand = new ArrayList<Card>();
     }
   
+    public int getMoney(){
+        return this.money;
+    }
+
+    public void setMoney(int money){
+        this.money = money;
+    }
 }
