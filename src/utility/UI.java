@@ -4,21 +4,18 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
-
 import entities.Card;
 import entities.Player;
 import gameplay.*;
 
-public class UI extends Game{
+public class UI extends Game {
 
     private ArrayList<Card> deck;
-
-    // dealer's hiddenCard
 
     // Instantiate player & dealer
     private Player player;
     private Player dealer;
-    
+
     private boolean beforeBet;
     // window
     private int boardWidth;
@@ -29,8 +26,10 @@ public class UI extends Game{
     // boolean firstRound = true;
 
     // Betting indicator
-    int betAmount;
+    private int betAmount;
     private String result;
+    private int playerHandY;
+    private int dealerHandY;
 
     // Strings that keep track of player's hand and balance
     String playerHandSum;
@@ -47,37 +46,23 @@ public class UI extends Game{
     private JFrame frame;
     private JPanel gamePanel;
 
-    { // Logic of start game, for later use
-      // JPanel startGamePanel = new JPanel(){
-      // @Override
-      // public void paintComponent(Graphics g){
-      // super.paintComponent(g);
-      // Graphics2D g2d = (Graphics2D) g;
-      // Font fnt0 = new Font("Times New Roman", Font.BOLD, 50);
-      // Font fnt1 = new Font("Times New Roman", Font.BOLD, 25);
-      // g.setFont(fnt0);
-      // g.setColor(Color.WHITE);
-      // g.drawString("Blackjack", 230, 150);
+    public void drawPlayerCards(Graphics g, Player player) {
+        for (int i = 0; i < player.getHand().size(); i++) {
+            // System.out.println("Player draws a card");
+            // System.err.println("Player's Sum is " + player.getSum());
+            Card card = player.getHand().get(i);
+            String imagePath = card.getImagePath();
 
-        // g.setFont(fnt0);
-        // g.setColor(Color.WHITE);
+            Image cardImage = new ImageIcon(imagePath).getImage();
 
-        // g.drawString("Start", 280, 510 );
-
-        // Rectangle startButton = new Rectangle(260, 460, 150, 75);
-        // g2d.draw(startButton);
-        // }
-        // };
-
-        // if (firstRound) {
-        // startGamePanel.setLayout(new BorderLayout());
-        // startGamePanel.setBackground(new Color(53, 101, 77)); // Set the background
-        // color to green
-        // frame.add(startGamePanel);
-        // }
+            g.drawImage(cardImage, 20 + (cardWidth + 5) * i, playerHandY, cardWidth, cardHeight, null);
+            System.out.println("Print Player Card: " + i);
+            System.out.println("Player's Current Score: " + player.getSum());
+            System.out.println("player's ace count: " + player.getAceCount());
+        }
     }
 
-    //Creation of the game panel
+    // Creation of the game panel
     public void createMainPanel() {
         gamePanel = new JPanel() {
             @Override
@@ -90,16 +75,15 @@ public class UI extends Game{
                     result = "Enter a bet: ";
                     playerMoney = "Balance: $" + player.getMoney();
 
-                    //Runs when the bet is placed
+                    // Runs when the bet is placed
                     if (!beforeBet) {
                         // draw dealer's hand
-                        // from 1 as dealer's first card is Hidden
-                        for (int i = 1; i < dealer.getHand().size(); i++) {
+                        for (int i = 1; i < dealer.getHand().size() ; i++) {
                             Card card = dealer.getHand().get(i);
                             String imagePath = card.getImagePath();
-
                             Image cardImage = new ImageIcon(imagePath).getImage();
-                            g.drawImage(cardImage, cardWidth + 25 + (cardWidth + 5) * (i - 1), 185, cardWidth, cardHeight, null);
+                            g.drawImage(cardImage, cardWidth + 25 + (cardWidth + 5) * (i - 1), dealerHandY, cardWidth,
+                                    cardHeight, null);
                             result = "Current bet: $" + betAmount;
                         }
 
@@ -116,7 +100,7 @@ public class UI extends Game{
                             hiddenCardImg = new ImageIcon(hiddenImagePath).getImage();
                         }
 
-                        g.drawImage(hiddenCardImg, 20, 185, cardWidth, cardHeight, null);
+                        g.drawImage(hiddenCardImg, 20, dealerHandY, cardWidth, cardHeight, null);
                         if (!hitButton.isEnabled() && !beforeBet) {
                             dealer.setSum(recountPlayerSum(dealer));
                             player.setSum(recountPlayerSum(player));
@@ -125,12 +109,12 @@ public class UI extends Game{
 
                             result = determineWinner(player, dealer, betAmount);
                             playerMoney = "Balance: $" + player.getMoney();
-                            
-                        writeText(g, 30, 20, 155, dealerHandSum);
+
+                            writeText(g, 30, 20, 155, dealerHandSum);
+                        }
+                        writeText(g, 30, 20, 550, playerHandSum);
+
                     }
-                    writeText(g, 30, 20, 550, playerHandSum);
-                    
-                }
                     writeText(g, 30, 310, 550, result);
 
                     writeText(g, 20, 310, 580, playerMoney);
@@ -140,29 +124,13 @@ public class UI extends Game{
             }
         };
     }
-    public void drawPlayerCards(Graphics g, Player player){
-        for (int i = 0; i < player.getHand().size(); i++) {
-            // System.out.println("Player draws a card");
-            // System.err.println("Player's Sum is " + player.getSum());
-            Card card = player.getHand().get(i);
-            String imagePath = card.getImagePath();
 
-            Image cardImage = new ImageIcon(imagePath).getImage();
-            
-            g.drawImage(cardImage, 20 + (cardWidth + 5) * i, 350, cardWidth, cardHeight, null);
-            System.out.println("Print Player Card: " + i);
-            System.out.println("Player's Current Score: " + player.getSum());
-            System.out.println("player's ace count: " + player.getAceCount());
-        }
-    }
-        //Text is in Times New Roman by default as a standard
-    public void writeText(Graphics g, int fontSize, int x, int y, String text){
+    // Text is in Times New Roman by default as a standard
+    public void writeText(Graphics g, int fontSize, int x, int y, String text) {
         g.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));
         g.setColor(Color.WHITE);
         g.drawString(text, x, y);
     }
-
-
 
     public void preGameBet() {
         beforeBet = true;
@@ -174,8 +142,10 @@ public class UI extends Game{
 
     public void initializeButtons() {
         buttonPanel.add(hitButton);
+        hitButton.setVisible(false);
 
         buttonPanel.add(stayButton);
+        stayButton.setVisible(false);
 
         buttonPanel.add(newRoundButton);
         newRoundButton.setVisible(false);
@@ -213,6 +183,10 @@ public class UI extends Game{
         exitButton.setVisible(true);
     }
 
+    public void afterBet() {
+
+    }
+
     public void createActionListeners() {
 
         confirmButton.addActionListener(new ActionListener() {
@@ -223,12 +197,14 @@ public class UI extends Game{
                         JOptionPane.showMessageDialog(frame, "Please enter a valid number.");
                         return;
                     }
-
-                    player.setMoney(player.getMoney() - betAmount);
-                    confirmButton.setEnabled(false);
-                    hitButton.setEnabled(true);
-                    stayButton.setEnabled(true);
                     beforeBet = false;
+                    player.setMoney(player.getMoney() - betAmount);
+                    confirmButton.setVisible(beforeBet);
+                    betInput.setVisible(beforeBet);
+                    hitButton.setVisible(!beforeBet);
+                    stayButton.setVisible(!beforeBet);
+                    hitButton.setEnabled(!beforeBet);
+                    stayButton.setEnabled(!beforeBet);
                     gamePanel.repaint();
                 } catch (NumberFormatException a) {
                     JOptionPane.showMessageDialog(frame, "Please enter a number.");
@@ -243,14 +219,13 @@ public class UI extends Game{
                 player.setAceCount(player.getAceCount() + (card.isAce() ? 1 : 0));
                 player.getHand().add(card);
                 if (player.getSum() > 21) { // A + 2 + J --> 1 + 2 + J
-                    if(recountPlayerSum(player) > 21){
-                    drawDealerCards(dealer, deck);
-                    showNewButtons();
+                    if (recountPlayerSum(player) > 21) {
+                        drawDealerCards(dealer, deck);
+                        showNewButtons();
                     }
                 }
-                if(player.getHand().size() == 5 && player.getSum() <= 21){
-                        showNewButtons();
-    
+                if (player.getHand().size() == 5 && player.getSum() <= 21) {
+                    showNewButtons();
                 }
                 gamePanel.repaint();
             }
@@ -261,15 +236,12 @@ public class UI extends Game{
                 showNewButtons();
                 drawDealerCards(dealer, deck);
                 gamePanel.repaint();
-                
             }
         });
 
         newRoundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Deck at the end of game= \n" + deck);
-                System.out.println("Deck size= " + deck.size());
                 restartGame();
             }
         });
@@ -282,41 +254,47 @@ public class UI extends Game{
         });
     }
 
-    public void restartGame() {
-        beforeBet = true;
-        confirmButton.setEnabled(true);
-        startGame(player, dealer,deck);
+    public void noMoneyPopup() {
+        int option = JOptionPane.showConfirmDialog(frame, "You have no more money! Do you want to restart?",
+                "No more money!", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            player.setMoney(5000);
+            restartGame();
+        } else {
+            System.exit(0);
+        }
+    }
 
+    public void resetAllButtons() {
+        confirmButton.setVisible(beforeBet);
+        betInput.setVisible(beforeBet);
         newRoundButton.setVisible(false);
-        confirmButton.setEnabled(true);
-        hitButton.setVisible(true);
-        stayButton.setVisible(true);
+        hitButton.setVisible(false);
+        stayButton.setVisible(false);
         buttonPanel.add(exitButton);
         exitButton.setVisible(false);
         gamePanel.repaint();
 
-        if(player.getMoney() == 0){
-            int option = JOptionPane.showConfirmDialog(frame, "You have no more money! Do you want to restart?", "No more money!", JOptionPane.YES_NO_OPTION);
-            if(option == JOptionPane.YES_OPTION){
-                player.setMoney(5000);
-                restartGame();
-            } else {
-                System.exit(0);
-            }
-        }
-    
     }
 
-
-
+    public void restartGame() {
+        beforeBet = true;
+        resetAllButtons();
+        startGame(player, dealer, deck);
+        if (player.getMoney() == 0) {
+            noMoneyPopup();
+        }
+    }
 
     public UI() {
         boardWidth = 680;
         boardHeight = boardWidth;
-        
+
         cardWidth = 100; // ratio should 1/1.4
         cardHeight = 140;
 
+        playerHandY = 350;
+        dealerHandY = 185;
         buttonPanel = new JPanel();
         betInput = new JTextField(10);
         confirmButton = new JButton("Confirm");
@@ -327,15 +305,12 @@ public class UI extends Game{
         frame = new JFrame("Black Jack");
 
         player = new Player();
-        player.setName("Player");
         dealer = new Player();
-        player.setName("Dealer");
 
         deck = DeckBuilder.buildDeck();
-
     }
 
-    public void setup(){
+    public void setup() {
         preGameBet();
         startGame(player, dealer, deck);
         createMainPanel();

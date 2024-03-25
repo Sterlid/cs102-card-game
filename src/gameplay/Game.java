@@ -11,8 +11,8 @@ public class Game {
     private Card hiddenCard;
 
     public void startOfRoundCards(Player p, ArrayList<Card> deck) {
-        drawCard(p,deck);
-        drawCard(p,deck);
+        drawCard(p, deck);
+        drawCard(p, deck);
         if (p.getAceCount() == 2 && p.getHand().size() == 2) {
             p.setSum(12);
         }
@@ -31,6 +31,7 @@ public class Game {
         deck = DeckBuilder.buildDeck();
         d.setFreshHand();
         p.setFreshHand();
+
         // Boolean to not redraw the start screen
         // firstRound = false;
 
@@ -57,6 +58,7 @@ public class Game {
         System.out.println("hand: " + p.getHand() + " Sum: " + p.getSum() + " Ace count:" + p.getAceCount());
 
     }
+    
 
     public int recountPlayerSum(Player p) {
         while (p.getSum() > 21 && p.getAceCount() > 0) {
@@ -70,7 +72,7 @@ public class Game {
 
     public void drawDealerCards(Player d, ArrayList<Card> deck) {
         while (d.getSum() < 17) {
-            drawCard(d,deck);
+            drawCard(d, deck);
             recountPlayerSum(d);
         }
     }
