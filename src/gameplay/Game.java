@@ -9,24 +9,25 @@ import utility.DeckBuilder;
 public class Game {
 
     private Card hiddenCard;
+    private ArrayList<Card> deck;
 
-    public void startOfRoundCards(Player p, ArrayList<Card> deck) {
-        drawCard(p, deck);
-        drawCard(p, deck);
+    public void startOfRoundCards(Player p) {
+        drawCard(p);
+        drawCard(p);
         if (p.getAceCount() == 2 && p.getHand().size() == 2) {
             p.setSum(12);
         }
     }
 
     // draws 1 card
-    public void drawCard(Player p, ArrayList<Card> deck){
+    public void drawCard(Player p){
             Card card = deck.remove(deck.size() - 1);
             p.setSum(p.getSum() + card.getValue());
             p.setAceCount(p.getAceCount() + (card.isAce() ? 1 : 0));
             p.getHand().add(card);
     }
 
-    public void startGame(Player p, Player d, ArrayList<Card> deck) {
+    public void startGame(Player p, Player d) {
         // deck
         deck = DeckBuilder.buildDeck();
         d.setFreshHand();
@@ -40,20 +41,15 @@ public class Game {
         d.setSum(d.getSum() + hiddenCard.getValue());
         d.setAceCount(d.getAceCount() + (hiddenCard.isAce() ? 1 : 0));
 
-        // Dealer's normal cards
-        // startOfRoundCards(d, deck);
-        drawCard(d, deck);
-
+        // Dealer's 2nd card
+        drawCard(d);
+    
         System.out.println("DEALER:");
         System.out.println(hiddenCard);
         System.out.println("Hand: " + d.getHand() + " Sum: " + d.getSum() + " Ace count: " + d.getAceCount());
 
-        // p.setSum(0);
-        // p.setAceCount(0);
-
-        startOfRoundCards(p, deck);
+        startOfRoundCards(p);
         System.out.println("Player's hand size is: " + p.getHand().size());
-
         System.out.println("PLAYER: ");
         System.out.println("hand: " + p.getHand() + " Sum: " + p.getSum() + " Ace count:" + p.getAceCount());
 
@@ -70,9 +66,9 @@ public class Game {
         return p.getSum();
     }
 
-    public void drawDealerCards(Player d, ArrayList<Card> deck) {
-        while (d.getSum() < 17) {
-            drawCard(d, deck);
+    public void drawDealerCards(Player d) {
+        while (d.getSum() < 16 && d.getHand().size()<5) {
+            drawCard(d);
             recountPlayerSum(d);
         }
     }
@@ -101,6 +97,10 @@ public class Game {
         // By default, the dealer wins if none of the if statements above trigger.
 
         return "Dealer Win!";
+    }
+
+    public ArrayList<Card> getDeck() {
+        return deck;
     }
 
 }

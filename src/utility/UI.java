@@ -10,8 +10,6 @@ import gameplay.*;
 
 public class UI extends Game {
 
-    private ArrayList<Card> deck;
-
     // Instantiate player & dealer
     private Player player;
     private Player dealer;
@@ -48,8 +46,6 @@ public class UI extends Game {
 
     public void drawPlayerCards(Graphics g, Player player) {
         for (int i = 0; i < player.getHand().size(); i++) {
-            // System.out.println("Player draws a card");
-            // System.err.println("Player's Sum is " + player.getSum());
             Card card = player.getHand().get(i);
             String imagePath = card.getImagePath();
 
@@ -214,13 +210,14 @@ public class UI extends Game {
 
         hitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Card card = deck.remove(deck.size() - 1);
-                player.setSum(player.getSum() + card.getValue());
-                player.setAceCount(player.getAceCount() + (card.isAce() ? 1 : 0));
-                player.getHand().add(card);
+                // Card card = deck.remove(deck.size() - 1);
+                // player.setSum(player.getSum() + card.getValue());
+                // player.setAceCount(player.getAceCount() + (card.isAce() ? 1 : 0));
+                // player.getHand().add(card);
+                drawCard(player);
                 if (player.getSum() > 21) { // A + 2 + J --> 1 + 2 + J
                     if (recountPlayerSum(player) > 21) {
-                        drawDealerCards(dealer, deck);
+                        drawDealerCards(dealer);
                         showNewButtons();
                     }
                 }
@@ -234,7 +231,7 @@ public class UI extends Game {
         stayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showNewButtons();
-                drawDealerCards(dealer, deck);
+                drawDealerCards(dealer);
                 gamePanel.repaint();
             }
         });
@@ -280,7 +277,7 @@ public class UI extends Game {
     public void restartGame() {
         beforeBet = true;
         resetAllButtons();
-        startGame(player, dealer, deck);
+        startGame(player, dealer);
         if (player.getMoney() == 0) {
             noMoneyPopup();
         }
@@ -307,12 +304,12 @@ public class UI extends Game {
         player = new Player();
         dealer = new Player();
 
-        deck = DeckBuilder.buildDeck();
+        // deck = DeckBuilder.buildDeck();
     }
 
     public void setup() {
         preGameBet();
-        startGame(player, dealer, deck);
+        startGame(player, dealer);
         createMainPanel();
         initializeFrame();
         initializeGamePanel();

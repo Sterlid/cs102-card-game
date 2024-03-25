@@ -2,43 +2,25 @@ package entities;
 import java.util.ArrayList;
 
 public class Player {
-    String name;
     ArrayList<Card> hand;
-    boolean banBan;
-    boolean banLuck;
     int sum;
     int aceCount;
     int pictureCount;
     int money;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Player(){
         hand = new ArrayList<Card>();
-        // banBan = false;
-        // banLuck = false;
         sum = 0;
         aceCount =0;
-        // pictureCount = 0;
         money = 5000;
+        // banBan = false;
+        // banLuck = false;
+        // pictureCount = 0;
+
     }
 
     public ArrayList<Card> getHand() {
         return hand;
-    }
-
-    public boolean isBanBan() {
-        return banBan;
-    }
-
-    public boolean isBanLuck() {
-        return banLuck;
     }
 
     public int getSum() {
@@ -52,6 +34,14 @@ public class Player {
     public int getPictureCount() {
         return pictureCount;
     }
+
+    // public boolean isBanBan() {
+    //     return banBan;
+    // }
+
+    // public boolean isBanLuck() {
+    //     return banLuck;
+    // }
 
     public void setSum(int sum) {
         this.sum = sum;
