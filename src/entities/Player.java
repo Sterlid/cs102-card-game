@@ -2,6 +2,7 @@ package entities;
 import java.util.ArrayList;
 
 public class Player {
+    String name;
     ArrayList<Card> hand;
     boolean banBan;
     boolean banLuck;
@@ -10,13 +11,21 @@ public class Player {
     int pictureCount;
     int money;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Player(){
         hand = new ArrayList<Card>();
-        banBan = false;
-        banLuck = false;
+        // banBan = false;
+        // banLuck = false;
         sum = 0;
         aceCount =0;
-        pictureCount = 0;
+        // pictureCount = 0;
         money = 5000;
     }
 

@@ -1,8 +1,8 @@
-import utility.Blackjack;
+import utility.UI;
 
-public class App{
+public class App {
     public static void main(String[] args) {
-        Blackjack blackjack = new Blackjack();
-        
-    }    
+        UI blackjack = new UI();
+        blackjack.setup();
     }
+}
