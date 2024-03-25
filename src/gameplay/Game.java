@@ -20,11 +20,13 @@ public class Game {
     }
 
     // draws 1 card
-    public void drawCard(Player p){
+    public Card drawCard(Player p){
             Card card = deck.remove(deck.size() - 1);
             p.setSum(p.getSum() + card.getValue());
             p.setAceCount(p.getAceCount() + (card.isAce() ? 1 : 0));
             p.getHand().add(card);
+
+        return card;
     }
 
     public void startGame(Player p, Player d) {
@@ -33,25 +35,21 @@ public class Game {
         d.setFreshHand();
         p.setFreshHand();
 
-        // Boolean to not redraw the start screen
-        // firstRound = false;
-
-        hiddenCard = deck.remove(deck.size() - 1); // remove card at top of deck
-        d.getHand().add(hiddenCard);
-        d.setSum(d.getSum() + hiddenCard.getValue());
-        d.setAceCount(d.getAceCount() + (hiddenCard.isAce() ? 1 : 0));
-
+        // Dealer's first card is hidden.
+        hiddenCard = drawCard(d);
         // Dealer's 2nd card
         drawCard(d);
-    
-        System.out.println("DEALER:");
-        System.out.println(hiddenCard);
-        System.out.println("Hand: " + d.getHand() + " Sum: " + d.getSum() + " Ace count: " + d.getAceCount());
-
         startOfRoundCards(p);
-        System.out.println("Player's hand size is: " + p.getHand().size());
-        System.out.println("PLAYER: ");
-        System.out.println("hand: " + p.getHand() + " Sum: " + p.getSum() + " Ace count:" + p.getAceCount());
+
+        /* FOR DEBUGGING */
+        // System.out.println("DEALER:");
+        // System.out.println("Hidden Card: " + hiddenCard);
+        // System.out.println("Hand: " + d.getHand() + " Sum: " + d.getSum() + " Ace count: " + d.getAceCount());
+
+        
+        // System.out.println("PLAYER: ");
+        // System.out.println("Player's hand size is: " + p.getHand().size());
+        // System.out.println("hand: " + p.getHand() + " Sum: " + p.getSum() + " Ace count:" + p.getAceCount());
 
     }
     
