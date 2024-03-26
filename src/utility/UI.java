@@ -245,6 +245,9 @@ public class UI extends Game {
         newRoundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(player.getMoney() == 0){
+                noMoneyPopup();
+                }
                 restartGame();
             }
         });
@@ -284,9 +287,7 @@ public class UI extends Game {
         beforeBet = true;
         resetAllButtons();
         startGame(player, dealer);
-        if (player.getMoney() == 0) {
-            noMoneyPopup();
-        }
+
     }
 
     public UI() {
