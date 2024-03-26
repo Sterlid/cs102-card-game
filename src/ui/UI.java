@@ -155,7 +155,7 @@ public class UI extends Game{
     }
 
 
-    //
+    //This method is to show the bet Input and confirm Button before betting
     public void preGameBet() {
         beforeBet = true;
         buttonPanel.add(betInput);
