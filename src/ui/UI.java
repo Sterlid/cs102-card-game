@@ -164,7 +164,7 @@ public class UI extends Game{
         buttonPanel.setVisible(true);
     }
 
-    public void initializeButtons() {
+    public void addButtons() {
         buttonPanel.add(hitButton);
         hitButton.setVisible(false);
 
@@ -183,7 +183,7 @@ public class UI extends Game{
         gamePanel.setVisible(true);
     }
 
-    public void initializeFrame() {
+    public void setUpFrame() {
         frame.setVisible(true);
         frame.setSize(boardWidth, boardHeight);
         frame.setLocationRelativeTo(null);
@@ -191,7 +191,7 @@ public class UI extends Game{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void initializeGamePanel() {
+    public void setUpGamePanel() {
         gamePanel.setLayout(new BorderLayout());
         gamePanel.setBackground(new Color(53, 101, 77));
         frame.add(gamePanel);
@@ -332,13 +332,13 @@ public class UI extends Game{
 
     }
 
-    public void setup(){
+      public void setup(){
         preGameBet();
         startGame(player, dealer);
         createMainPanel();
-        initializeFrame();
-        initializeGamePanel();
-        initializeButtons();
+        setUpFrame();
+        setUpGamePanel();
+        addButtons();
         createActionListeners();
     }
 
