@@ -4,6 +4,7 @@ import java.util.Random;
 
 import entities.*;
 
+// Builds a new deck
 public class DeckBuilder {
     public static ArrayList<Card> buildDeck() {
         ArrayList<Card> deck = new ArrayList<>();
@@ -22,7 +23,8 @@ public class DeckBuilder {
 
         return shuffle(deck);
     }
-
+    
+    // Swap around 2 cards at a time randomly to shuffle the deck
     public static ArrayList<Card> shuffle(ArrayList<Card> deck) {
         Random random = new Random(); // shuffle deck
         for (int i = 0; i < deck.size(); i++) {
