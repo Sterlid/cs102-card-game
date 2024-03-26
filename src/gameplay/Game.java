@@ -67,9 +67,11 @@ public class Game {
         System.out.println("recountPlayerSum() method ran successfully");
         return p.getSum();
     }
-    // To make our dealer smarter as if the total sum of 2 cards is below 16 the chances of losing is higher hence we get our dealer to draw.
+    
+    /* To make our dealer smarter as if the total sum of 2 cards is below 16 the chances of losing 
+    is higher hence we get our dealer to draw to make it more difficult for the player to win. */
     public void drawDealerCards(Player d) {
-        while (d.getSum() < 16 && d.getHand().size()<5) {
+        while (d.getSum() < 16 && d.getHand().size()<=5) {
             drawCard(d);
             recountPlayerSum(d);
         }
@@ -100,7 +102,7 @@ public class Game {
 
         return "Dealer Win!";
     }
-    //returns a new set of deck
+    //returns the deck
     public ArrayList<Card> getDeck() {
         return deck;
     }
