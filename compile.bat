@@ -1,1 +1,1 @@
-javac -d classes -cp "src;images/cards" src/App.java
+javac -d classes -cp "src;images" src/App.java

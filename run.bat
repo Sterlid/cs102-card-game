@@ -1,1 +1,1 @@
-java -cp "images/cards;classes" App
+java -cp "images;classes" App
