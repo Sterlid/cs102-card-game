@@ -1,4 +1,4 @@
-import utility.UI;
+import ui.UI;
 
 public class App {
     public static void main(String[] args) {
