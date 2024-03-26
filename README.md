@@ -16,9 +16,9 @@ Here are the rules shown below:
 10) In the event that a player draws 5 cards and did not exceed 21 they win.
 
 Here are the rewards below:
-1)If you win you receive 2 times your bet money.
-2)If you lose you lose your bet money.
-3)If its a tie you receive back your bet money.
+1) If you win you receive 2 times your bet money.
+2) If you lose you lose your bet money.
+3) If its a tie you receive back your bet money.
 
 The player has a starting hand sum of $5000. So bet wisely and try to become the next billionaire in this game of blackjack or become broke and try again!
 
