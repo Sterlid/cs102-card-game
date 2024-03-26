@@ -80,6 +80,7 @@ public class UI extends Game{
     //Creation of the game panel. The order of commands executed are as follow:
     /*
      * 1. call parent constructor of Graphics
+     * 2. Instantiate playerHandSum, dealerHandSum, result and playerMoney.
      */
     public void createMainPanel() {
         gamePanel = new JPanel() {
