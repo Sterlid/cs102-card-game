@@ -1,19 +1,19 @@
-package utility;
+package ui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import javax.swing.*;
 import entities.Card;
 import entities.Player;
 import gameplay.*;
 
-public class UI extends Game {
+public class UI extends Game{
+
 
     // Instantiate player & dealer
     private Player player;
     private Player dealer;
-
+    
     private boolean beforeBet;
     // window
     private int boardWidth;
@@ -44,21 +44,43 @@ public class UI extends Game {
     private JFrame frame;
     private JPanel gamePanel;
 
-    public void drawPlayerCards(Graphics g, Player player) {
-        for (int i = 0; i < player.getHand().size(); i++) {
-            Card card = player.getHand().get(i);
+
+    //This method draws the player cards into the game panel.
+    //It takes each card inside of the player's hand, finds its image path using the Player class' getImagePath function, and draws the image onto the screen.
+    //The x value for the drawImage is set the way it is so that each card will be drawn apart from each other by the order of the card. 
+    //The first card will be drawn 20 pixels away from the edge of the panel, and the next one will be drawn 5 pixels + the card width away from the previous..
+    public void paintPlayerCards(Graphics g, Player player){
+        int i = 0;
+        for (Card card : player.getHand()) {
+            // System.out.println("Player draws a card");
+            // System.err.println("Player's Sum is " + player.getSum());
             String imagePath = card.getImagePath();
-
             Image cardImage = new ImageIcon(imagePath).getImage();
-
             g.drawImage(cardImage, 20 + (cardWidth + 5) * i, playerHandY, cardWidth, cardHeight, null);
             System.out.println("Print Player Card: " + i);
             System.out.println("Player's Current Score: " + player.getSum());
             System.out.println("player's ace count: " + player.getAceCount());
+            i++;
         }
     }
 
-    // Creation of the game panel
+    //This paintDealerCards method works quite similar to paintPlayer cards, but with slight differences.
+    //paintDealerCards will draw all the other cards the dealer has that is not hidden.
+    public void paintDealerCards(Graphics g, Player dealer){
+        for (int i = 1; i < dealer.getHand().size() ; i++) {
+            Card card = dealer.getHand().get(i);
+            String imagePath = card.getImagePath();
+            Image cardImage = new ImageIcon(imagePath).getImage();
+            g.drawImage(cardImage, cardWidth + 25 + (cardWidth + 5) * (i - 1), dealerHandY, cardWidth,
+                    cardHeight, null);
+        }
+    }
+
+
+    //Creation of the game panel. The order of commands executed are as follow:
+    /*
+     * 1. call parent constructor of Graphics
+     */
     public void createMainPanel() {
         gamePanel = new JPanel() {
             @Override
@@ -71,20 +93,15 @@ public class UI extends Game {
                     result = "Enter a bet: ";
                     playerMoney = "Balance: $" + player.getMoney();
 
-                    // Runs when the bet is placed
+                    //Runs when the bet is placed
                     if (!beforeBet) {
-                        // draw dealer's hand
-                        for (int i = 1; i < dealer.getHand().size() ; i++) {
-                            Card card = dealer.getHand().get(i);
-                            String imagePath = card.getImagePath();
-                            Image cardImage = new ImageIcon(imagePath).getImage();
-                            g.drawImage(cardImage, cardWidth + 25 + (cardWidth + 5) * (i - 1), dealerHandY, cardWidth,
-                                    cardHeight, null);
-                            result = "Current bet: $" + betAmount;
-                        }
+                        result = "Current bet: $" + betAmount;
 
+                        // draw dealer's hand
+                        paintDealerCards(g, dealer);
+                        
                         // draw player's hand
-                        drawPlayerCards(g, player);
+                        paintPlayerCards(g, player);
 
                         // draw hidden card
                         String hiddenImagePath = "images/cards/back.gif";
@@ -102,26 +119,26 @@ public class UI extends Game {
                             player.setSum(recountPlayerSum(player));
                             System.out.println("Dealer sum = " + dealer.getSum());
                             System.out.println("Player sum = " + player.getSum());
-
+                           
                             result = determineWinner(player, dealer, betAmount);
                             playerMoney = "Balance: $" + player.getMoney();
-
-                            writeText(g, 30, 20, 155, dealerHandSum);
-                        }
-                        writeText(g, 30, 20, 550, playerHandSum);
-
-                        writeText(g, 20, 310, 550, result);
-
-                        writeText(g, 20, 310, 580, playerMoney);
-
+                            
+                        writeText(g, 30, 20, 155, dealerHandSum);
                     }
-                    else{
-                    writeText(g, 70, 165, 250, "BlackJack ♠");
+                    
+                    writeText(g, 30, 20, 550, playerHandSum);
+                    
+                    writeText(g, 20, 310, 550, result);
+
+                    writeText(g, 20, 310, 580, playerMoney);
+                }
+                else{
+                writeText(g, 70, 165, 250, "BlackJack ♠");
+
+                writeText(g, 20, 200, 310, result);
                 
-                    writeText(g, 20, 200, 310, result);
-
-                    writeText(g, 20, 200, 350, playerMoney);
-                    }
+                writeText(g, 20, 200, 350, playerMoney);
+                }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -129,13 +146,16 @@ public class UI extends Game {
         };
     }
 
-    // Text is in Times New Roman by default as a standard
-    public void writeText(Graphics g, int fontSize, int x, int y, String text) {
+        //This method will help draw text into the panel quicker as we need to call multiple functions to draw text into the panel
+        //Text is in Times New Roman by default as a standard
+    public void writeText(Graphics g, int fontSize, int x, int y, String text){
         g.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));
         g.setColor(Color.WHITE);
         g.drawString(text, x, y);
     }
 
+
+    //
     public void preGameBet() {
         beforeBet = true;
         buttonPanel.add(betInput);
@@ -187,7 +207,7 @@ public class UI extends Game {
         exitButton.setVisible(true);
     }
 
-    public void afterBet() {
+    public void afterBet(){
 
     }
 
@@ -218,19 +238,15 @@ public class UI extends Game {
 
         hitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Card card = deck.remove(deck.size() - 1);
-                // player.setSum(player.getSum() + card.getValue());
-                // player.setAceCount(player.getAceCount() + (card.isAce() ? 1 : 0));
-                // player.getHand().add(card);
                 drawCard(player);
                 if (player.getSum() > 21) { // A + 2 + J --> 1 + 2 + J
-                    if (recountPlayerSum(player) > 21) {
-                        drawDealerCards(dealer);
-                        showNewButtons();
+                    if(recountPlayerSum(player) > 21){
+                    drawDealerCards(dealer);
+                    showNewButtons();
                     }
                 }
-                if (player.getHand().size() == 5 && player.getSum() <= 21) {
-                    showNewButtons();
+                if(player.getHand().size() == 5 && player.getSum() <= 21){
+                        showNewButtons();
                 }
                 gamePanel.repaint();
             }
@@ -262,18 +278,17 @@ public class UI extends Game {
         });
     }
 
-    public void noMoneyPopup() {
-        int option = JOptionPane.showConfirmDialog(frame, "You have no more money! Do you want to restart?",
-                "No more money!", JOptionPane.YES_NO_OPTION);
-        if (option == JOptionPane.YES_OPTION) {
-            player.setMoney(5000);
-            restartGame();
-        } else {
-            System.exit(0);
-        }
+    public void noMoneyPopup(){
+        int option = JOptionPane.showConfirmDialog(frame, "You have no more money! Do you want to restart?", "No more money!", JOptionPane.YES_NO_OPTION);
+            if(option == JOptionPane.YES_OPTION){
+                player.setMoney(5000);
+                restartGame();
+            } else {
+                System.exit(0);
+            }
     }
 
-    public void resetAllButtons() {
+    public void resetAllButtons(){
         confirmButton.setVisible(beforeBet);
         betInput.setVisible(beforeBet);
         newRoundButton.setVisible(false);
@@ -292,10 +307,12 @@ public class UI extends Game {
 
     }
 
+
+
     public UI() {
         boardWidth = 680;
         boardHeight = boardWidth;
-
+        
         cardWidth = 100; // ratio should 1/1.4
         cardHeight = 140;
 
@@ -313,10 +330,9 @@ public class UI extends Game {
         player = new Player();
         dealer = new Player();
 
-        // deck = DeckBuilder.buildDeck();
     }
 
-    public void setup() {
+    public void setup(){
         preGameBet();
         startGame(player, dealer);
         createMainPanel();
