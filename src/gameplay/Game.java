@@ -11,6 +11,7 @@ public class Game {
     private Card hiddenCard;
     private ArrayList<Card> deck;
 
+    // starts the round by having the player draw 2 card, if the player draws 2 aces it will be a sum of 12 as our ace is either 11 or 1 and it should not exceed 21
     public void startOfRoundCards(Player p) {
         drawCard(p);
         drawCard(p);
@@ -29,6 +30,9 @@ public class Game {
         return card;
     }
 
+    /*Starts the game by building a new deck and resetting the player and dealer hand sum and acecount to 0.
+    //The dealer and player draws their hand card.
+    */
     public void startGame(Player p, Player d) {
         // deck
         deck = DeckBuilder.buildDeck();
@@ -53,7 +57,7 @@ public class Game {
 
     }
     
-
+    // Change the ace points from 11 to 1 based on condition of hand sum for player
     public int recountPlayerSum(Player p) {
         while (p.getSum() > 21 && p.getAceCount() > 0) {
             p.setSum(p.getSum() - 10);
@@ -63,19 +67,19 @@ public class Game {
         System.out.println("recountPlayerSum() method ran successfully");
         return p.getSum();
     }
-
+    // To make our dealer smarter as if the total sum of 2 cards is below 16 the chances of losing is higher hence we get our dealer to draw.
     public void drawDealerCards(Player d) {
         while (d.getSum() < 16 && d.getHand().size()<5) {
             drawCard(d);
             recountPlayerSum(d);
         }
     }
-
+    //The path to our hiddencard image
     public String getHiddenCardPath() {
         String imagePath = "images/cards/" + hiddenCard.toString() + ".gif";
         return imagePath;
     }
-
+    //The conditons on who wins,loses or tie.
     public String determineWinner(Player p, Player d, int betAmount) {
         if (p.getSum() > 21 && d.getSum() > 21) {
             p.setMoney(p.getMoney() + betAmount);
@@ -96,7 +100,7 @@ public class Game {
 
         return "Dealer Win!";
     }
-
+    //returns a new set of deck
     public ArrayList<Card> getDeck() {
         return deck;
     }
