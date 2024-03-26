@@ -207,8 +207,13 @@ public class UI extends Game{
         exitButton.setVisible(true);
     }
 
-    public void afterBet(){
-
+    public void afterBet(boolean beforeBet){
+        confirmButton.setVisible(beforeBet);
+        betInput.setVisible(beforeBet);
+        hitButton.setVisible(!beforeBet);
+        stayButton.setVisible(!beforeBet);
+        hitButton.setEnabled(!beforeBet);
+        stayButton.setEnabled(!beforeBet);
     }
 
     public void createActionListeners() {
@@ -223,12 +228,7 @@ public class UI extends Game{
                     }
                     beforeBet = false;
                     player.setMoney(player.getMoney() - betAmount);
-                    confirmButton.setVisible(beforeBet);
-                    betInput.setVisible(beforeBet);
-                    hitButton.setVisible(!beforeBet);
-                    stayButton.setVisible(!beforeBet);
-                    hitButton.setEnabled(!beforeBet);
-                    stayButton.setEnabled(!beforeBet);
+                    afterBet(beforeBet);
                     gamePanel.repaint();
                 } catch (NumberFormatException a) {
                     JOptionPane.showMessageDialog(frame, "Please enter a number.");
