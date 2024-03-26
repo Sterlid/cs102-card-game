@@ -115,11 +115,13 @@ public class UI extends Game {
                         writeText(g, 20, 310, 580, playerMoney);
 
                     }
+                    else{
                     writeText(g, 70, 165, 250, "BlackJack ♠");
                 
                     writeText(g, 20, 200, 310, result);
 
                     writeText(g, 20, 200, 350, playerMoney);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
