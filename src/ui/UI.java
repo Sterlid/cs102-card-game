@@ -21,7 +21,6 @@ public class UI extends Game{
 
     private int cardWidth; // ratio should 1/1.4
     private int cardHeight;
-    // boolean firstRound = true;
 
     // Betting indicator
     private int betAmount;
