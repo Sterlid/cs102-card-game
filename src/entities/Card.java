@@ -26,9 +26,13 @@ public class Card {
     }
 
     // Method to know if the compared card is an ace
-    public boolean isAce() {
-        return number == "a";
+    public int isAce() {
+        if(number.equals("a")){
+            return 1;
+        }
+        return 0;
     }
+    
     //Method to get the current image's path
     public String getImagePath(){
         String imagePath = "images/cards/" + toString() + ".gif";
