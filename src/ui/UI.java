@@ -160,6 +160,7 @@ public class UI extends Game{
         buttonPanel.add(betInput);
         buttonPanel.add(confirmButton);
         frame.add(buttonPanel, BorderLayout.SOUTH);
+        buttonPanel.setBackground(new Color(53, 101, 77));
         buttonPanel.setVisible(true);
     }
 
