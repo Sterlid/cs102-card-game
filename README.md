@@ -23,3 +23,4 @@ Here are the rewards below:
 
 The player has a starting hand sum of $5000. So bet wisely and try to become the next billionaire in this game of blackjack or become broke and try again!
 
+Source for card back: https://opengameart.org/content/colorful-poker-card-back
