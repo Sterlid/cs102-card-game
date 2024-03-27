@@ -43,6 +43,40 @@ public class UI extends Game{
     private JFrame frame;
     private JPanel gamePanel;
 
+        //This is the constructor that instantiate the UI layout and the Players.
+        public UI() {
+        boardWidth = 680;
+        boardHeight = boardWidth;
+        
+        cardWidth = 100; // ratio should 1/1.4
+        cardHeight = 140;d
+
+        playerHandY = 350;
+        dealerHandY = 185;
+        buttonPanel = new JPanel();
+        betInput = new JTextField(10);
+        confirmButton = new JButton("Confirm");
+        hitButton = new JButton("Hit");
+        stayButton = new JButton("Stay");
+        playAgainButton = new JButton("Play Again");
+        exitButton = new JButton("Exit Game");
+        frame = new JFrame("Black Jack");
+
+        player = new Player();
+        dealer = new Player();
+
+    }
+
+     // This is the method called to setup the entire game.
+      public void setup(){
+        preGameBet();
+        startGame(player, dealer);
+        createMainPanel();
+        setUpFrame();
+        setUpGamePanel();
+        addButtons();
+        createActionListeners();
+    }
 
     //This method draws the player cards into the game panel.
     //It takes each card inside of the player's hand, finds its image path using the Player class' getImagePath function, and draws the image onto the screen.
@@ -313,41 +347,6 @@ public class UI extends Game{
         resetAllButtons();
         startGame(player, dealer);
 
-    }
-
-
-
-    public UI() {
-        boardWidth = 680;
-        boardHeight = boardWidth;
-        
-        cardWidth = 100; // ratio should 1/1.4
-        cardHeight = 140;
-
-        playerHandY = 350;
-        dealerHandY = 185;
-        buttonPanel = new JPanel();
-        betInput = new JTextField(10);
-        confirmButton = new JButton("Confirm");
-        hitButton = new JButton("Hit");
-        stayButton = new JButton("Stay");
-        playAgainButton = new JButton("Play Again");
-        exitButton = new JButton("Exit Game");
-        frame = new JFrame("Black Jack");
-
-        player = new Player();
-        dealer = new Player();
-
-    }
-
-      public void setup(){
-        preGameBet();
-        startGame(player, dealer);
-        createMainPanel();
-        setUpFrame();
-        setUpGamePanel();
-        addButtons();
-        createActionListeners();
     }
 
 }
