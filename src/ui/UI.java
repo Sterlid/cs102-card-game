@@ -38,7 +38,7 @@ public class UI extends Game{
     private JButton confirmButton;
     private JButton hitButton;
     private JButton stayButton;
-    private JButton tryAgainButton;
+    private JButton playAgainButton;
     private JButton exitButton;
     private JFrame frame;
     private JPanel gamePanel;
@@ -173,8 +173,8 @@ public class UI extends Game{
         buttonPanel.add(stayButton);
         stayButton.setVisible(false);
 
-        buttonPanel.add(tryAgainButton);
-        tryAgainButton.setVisible(false);
+        buttonPanel.add(playAgainButton);
+        playAgainButton.setVisible(false);
 
         buttonPanel.add(exitButton);
         exitButton.setVisible(false);
@@ -209,7 +209,7 @@ public class UI extends Game{
         stayButton.setVisible(false);
         hitButton.setEnabled(false);
         stayButton.setEnabled(false);
-        tryAgainButton.setVisible(true);
+        playAgainButton.setVisible(true);
         exitButton.setVisible(true);
     }
 
@@ -268,7 +268,7 @@ public class UI extends Game{
             }
         });
 
-        tryAgainButton.addActionListener(new ActionListener() {
+        playAgainButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(player.getMoney() == 0){
@@ -299,7 +299,7 @@ public class UI extends Game{
     public void resetAllButtons(){
         confirmButton.setVisible(beforeBet);
         betInput.setVisible(beforeBet);
-        tryAgainButton.setVisible(false);
+        playAgainButton.setVisible(false);
         hitButton.setVisible(false);
         stayButton.setVisible(false);
         buttonPanel.add(exitButton);
@@ -331,7 +331,7 @@ public class UI extends Game{
         confirmButton = new JButton("Confirm");
         hitButton = new JButton("Hit");
         stayButton = new JButton("Stay");
-        tryAgainButton = new JButton("Try Again");
+        playAgainButton = new JButton("Play Again");
         exitButton = new JButton("Exit Game");
         frame = new JFrame("Black Jack");
 
