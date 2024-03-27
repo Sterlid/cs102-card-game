@@ -4,6 +4,7 @@ import java.util.*;
 import entities.*;
 
 public class DeckBuilder {
+    // Builds a new deck
     public static ArrayList<Card> buildDeck() {
         ArrayList<Card> deck = new ArrayList<>();
         String[] values = { "a", "2", "3", "4", "5", "6", "7", "8", "9", "t", "j", "q", "k" };
