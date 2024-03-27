@@ -8,9 +8,7 @@ import entities.Player;
 import gameplay.*;
 
 public class UI extends Game{
-
-
-    // Instantiate player & dealer
+    // Declare player & dealer
     private Player player;
     private Player dealer;
     
@@ -21,6 +19,7 @@ public class UI extends Game{
 
     private int cardWidth; // ratio should 1/1.4
     private int cardHeight;
+    // boolean firstRound = true;
 
     // Betting indicator
     private int betAmount;
@@ -38,18 +37,18 @@ public class UI extends Game{
     private JButton confirmButton;
     private JButton hitButton;
     private JButton stayButton;
-    private JButton playAgainButton;
+    private JButton newRoundButton;
     private JButton exitButton;
     private JFrame frame;
     private JPanel gamePanel;
 
-        //This is the constructor that instantiate the UI layout and the Players.
-        public UI() {
-        boardWidth = 680;
+     //Constructor that instantiates the UI layout and the Players.
+    public UI() {
+        boardWidth = 800;
         boardHeight = boardWidth;
         
         cardWidth = 100; // ratio should 1/1.4
-        cardHeight = 140;d
+        cardHeight = 140;
 
         playerHandY = 350;
         dealerHandY = 185;
@@ -58,7 +57,7 @@ public class UI extends Game{
         confirmButton = new JButton("Confirm");
         hitButton = new JButton("Hit");
         stayButton = new JButton("Stay");
-        playAgainButton = new JButton("Play Again");
+        newRoundButton = new JButton("Play Again");
         exitButton = new JButton("Exit Game");
         frame = new JFrame("Black Jack");
 
@@ -67,10 +66,10 @@ public class UI extends Game{
 
     }
 
-     // This is the method called to setup the entire game.
-      public void setup(){
-        preGameBet();
+     //Method called to setup the entire game.    
+    public void setup(){
         startGame(player, dealer);
+        preGameBet();
         createMainPanel();
         setUpFrame();
         setUpGamePanel();
@@ -144,7 +143,9 @@ public class UI extends Game{
                             hiddenImagePath = getHiddenCardPath();
                             System.out.println("Hidden image path: " + hiddenImagePath);
                             hiddenCardImg = new ImageIcon(hiddenImagePath).getImage();
+
                         }
+                        
 
                         g.drawImage(hiddenCardImg, 20, dealerHandY, cardWidth, cardHeight, null);
                         if (!hitButton.isEnabled() && !beforeBet) {
@@ -158,7 +159,6 @@ public class UI extends Game{
                             
                         writeText(g, 30, 20, 155, dealerHandSum);
                     }
-                    
                     writeText(g, 30, 20, 550, playerHandSum);
                     
                     writeText(g, 20, 310, 550, result);
@@ -166,11 +166,11 @@ public class UI extends Game{
                     writeText(g, 20, 310, 580, playerMoney);
                 }
                 else{
-                writeText(g, 70, 165, 250, "BlackJack ♠");
+                writeText(g, 70, boardWidth / 2 - 200, boardHeight / 2 - 50, "BlackJack ♠");
 
-                writeText(g, 20, 200, 310, result);
+                writeText(g, 20, boardWidth / 2 - 200, boardHeight / 2, result);
                 
-                writeText(g, 20, 200, 350, playerMoney);
+                writeText(g, 20, boardWidth / 2 - 200, boardHeight / 2 + 20, playerMoney);
                 }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -188,7 +188,7 @@ public class UI extends Game{
     }
 
 
-    //Method to show betting input, and sets beforeBet boolean as true.
+        //Method to show betting input, and sets beforeBet boolean as true.
     public void preGameBet() {
         beforeBet = true;
         buttonPanel.add(betInput);
@@ -207,8 +207,8 @@ public class UI extends Game{
         buttonPanel.add(stayButton);
         stayButton.setVisible(false);
 
-        buttonPanel.add(playAgainButton);
-        playAgainButton.setVisible(false);
+        buttonPanel.add(newRoundButton);
+        newRoundButton.setVisible(false);
 
         buttonPanel.add(exitButton);
         exitButton.setVisible(false);
@@ -232,7 +232,6 @@ public class UI extends Game{
     public void setUpGamePanel() {
         gamePanel.setLayout(new BorderLayout());
         gamePanel.setBackground(new Color(53, 101, 77));
-        //This color is poker green
         frame.add(gamePanel);
 
     }
@@ -243,12 +242,12 @@ public class UI extends Game{
         stayButton.setVisible(false);
         hitButton.setEnabled(false);
         stayButton.setEnabled(false);
-        playAgainButton.setVisible(true);
+        newRoundButton.setVisible(true);
         exitButton.setVisible(true);
     }
 
     //Shows buttons used during the game (hit and stay), and hides the text field and confirm button.
-    public void afterBet(boolean beforeBet){
+    public void afterBet(){
         confirmButton.setVisible(beforeBet);
         betInput.setVisible(beforeBet);
         hitButton.setVisible(!beforeBet);
@@ -270,7 +269,7 @@ public class UI extends Game{
                     }
                     beforeBet = false;
                     player.setMoney(player.getMoney() - betAmount);
-                    afterBet(beforeBet);
+                    afterBet();
                     gamePanel.repaint();
                 } catch (NumberFormatException a) {
                     JOptionPane.showMessageDialog(frame, "Please enter a number.");
@@ -302,7 +301,7 @@ public class UI extends Game{
             }
         });
 
-        playAgainButton.addActionListener(new ActionListener() {
+        newRoundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(player.getMoney() == 0){
@@ -320,6 +319,7 @@ public class UI extends Game{
         });
     }
 
+    //Pops up an option frame when the user runs out of money, giving an option to reset their balance or exit the game.
     public void noMoneyPopup(){
         int option = JOptionPane.showConfirmDialog(frame, "You have no more money! Do you want to restart?", "No more money!", JOptionPane.YES_NO_OPTION);
             if(option == JOptionPane.YES_OPTION){
@@ -330,23 +330,26 @@ public class UI extends Game{
             }
     }
 
+    //Resets buttons to before bet is placed
     public void resetAllButtons(){
         confirmButton.setVisible(beforeBet);
         betInput.setVisible(beforeBet);
-        playAgainButton.setVisible(false);
-        hitButton.setVisible(false);
-        stayButton.setVisible(false);
+        newRoundButton.setVisible(!beforeBet);
+        hitButton.setVisible(!beforeBet);
+        stayButton.setVisible(!beforeBet);
         buttonPanel.add(exitButton);
-        exitButton.setVisible(false);
+        exitButton.setVisible(!beforeBet);
         gamePanel.repaint();
 
     }
 
+    //Restarts game to before betting. Does not reset player's balance
     public void restartGame() {
         beforeBet = true;
         resetAllButtons();
         startGame(player, dealer);
 
     }
+    
 
 }
