@@ -25,3 +25,4 @@ The player has a starting hand sum of $5000. So bet wisely and try to become the
 
 Source for card back: https://opengameart.org/content/colorful-poker-card-back
 Source for all other card images: https://www.waste.org/~oxymoron/files/cards/
+Inspired from: https://github.com/ImKennyYip/black-jack
