@@ -146,7 +146,7 @@ public class UI extends Game{
         };
     }
 
-        //This method will help draw text into the panel quicker as we need to call multiple functions to draw text into the panel
+        //Method to assist drawing text into the screen by taking in the graphics used, font size, position of text, and the String specified.
         //Text is in Times New Roman by default as a standard
     public void writeText(Graphics g, int fontSize, int x, int y, String text){
         g.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));
@@ -155,7 +155,7 @@ public class UI extends Game{
     }
 
 
-    //This method is to show the bet Input and confirm Button before betting
+    //Method to show betting input, and sets beforeBet boolean as true.
     public void preGameBet() {
         beforeBet = true;
         buttonPanel.add(betInput);
@@ -164,6 +164,8 @@ public class UI extends Game{
         buttonPanel.setVisible(true);
     }
 
+    //Adds buttons into the buttonPanel for use, but doesn't set them as visible.
+    //These buttons are used in game.
     public void addButtons() {
         buttonPanel.add(hitButton);
         hitButton.setVisible(false);
@@ -183,6 +185,7 @@ public class UI extends Game{
         gamePanel.setVisible(true);
     }
 
+    //Sets up the game frame
     public void setUpFrame() {
         frame.setVisible(true);
         frame.setSize(boardWidth, boardHeight);
@@ -191,13 +194,16 @@ public class UI extends Game{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    //Set the layout and background color of the game panel.
     public void setUpGamePanel() {
         gamePanel.setLayout(new BorderLayout());
         gamePanel.setBackground(new Color(53, 101, 77));
+        //This color is poker green
         frame.add(gamePanel);
 
     }
 
+    //Sets the buttons used after the round ends as visible.
     public void showNewButtons() {
         hitButton.setVisible(false);
         stayButton.setVisible(false);
@@ -207,6 +213,7 @@ public class UI extends Game{
         exitButton.setVisible(true);
     }
 
+    //Shows buttons used during the game (hit and stay), and hides the text field and confirm button.
     public void afterBet(boolean beforeBet){
         confirmButton.setVisible(beforeBet);
         betInput.setVisible(beforeBet);
@@ -216,6 +223,7 @@ public class UI extends Game{
         stayButton.setEnabled(!beforeBet);
     }
 
+    //Creates all action listeners for all the buttons
     public void createActionListeners() {
 
         confirmButton.addActionListener(new ActionListener() {
