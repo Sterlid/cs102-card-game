@@ -30,4 +30,4 @@ Source for card back: https://opengameart.org/content/colorful-poker-card-back
 
 Source for all other card images: https://www.waste.org/~oxymoron/files/cards/
 
-Inspired from: https://github.com/ImKennyYip/black-jack
+Inspired from: https://github.com/ImKennyYip/blackjack-java
