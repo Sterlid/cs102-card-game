@@ -1,6 +1,5 @@
 package utility;
 import java.util.*;
-import java.util.Random;
 
 import entities.*;
 
@@ -25,14 +24,7 @@ public class DeckBuilder {
     
     // Swap around 2 cards at a time randomly to shuffle the deck
     public static ArrayList<Card> shuffle(ArrayList<Card> deck) {
-        Random random = new Random(); // shuffle deck
-        for (int i = 0; i < deck.size(); i++) {
-            int j = random.nextInt(deck.size());
-            Card currCard = deck.get(i);
-            Card randomCard = deck.get(j);
-            deck.set(i, randomCard);
-            deck.set(j, currCard);
-        }
+        Collections.shuffle(deck);
 
         System.out.println("AFTER SHUFFLE");
         System.out.println(deck);
