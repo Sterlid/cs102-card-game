@@ -30,8 +30,8 @@ Note: The player balance will only update after a new round has begun
 
 References:
 
-Source for card back: https://opengameart.org/content/colorful-poker-card-back
+Card images sourced from Waste.org. Available at: https://www.waste.org/~oxymoron/files/cards/. Accessed on 27 March 2024.
 
-Source for all other card images: https://www.waste.org/~oxymoron/files/cards/
+jeffshee 2014, card back red, Accessed on 24 March 2024, https://opengameart.org/content/colorful-poker-card-back.
 
-Inspired from: https://github.com/ImKennyYip/blackjack-java
+Kenny Yip Coding. (2023, August 2). Code Black Jack in Java [Video]. YouTube. https://www.youtube.com/watch?v=GMdgjaDdOjI&ab_channel=KennyYipCoding
