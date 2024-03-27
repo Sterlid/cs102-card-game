@@ -112,6 +112,8 @@ public class UI extends Game{
     //Creation of the game panel. The order of commands executed are as follow:
     /*
      * 1. call parent constructor of Graphics
+       2. Try to run the code if there is an error it would be caught and a stack trace would be printed
+       3. Run the display of the images and texts in the UI.
      */
     public void createMainPanel() {
         gamePanel = new JPanel() {
