@@ -61,9 +61,11 @@ public class Game {
     
     // Change the ace points from 11 to 1 based on condition of hand sum for player
     public int recountPlayerSum(Player p) {
-        while (p.getSum() > 21 && p.getAceCount() > 0) {
-            p.setSum(p.getSum() - 10);
+        for (Card currentCard : p.getHand()) {
+            if(currentCard instanceof Ace && p.getSum() > 21){
+            p.setSum(Ace.getLowerValue());
             p.setAceCount(p.getAceCount() - 1);
+            }
         }
 
         System.out.println("recountPlayerSum() method ran successfully");
