@@ -26,9 +26,14 @@ Here are the rewards below:
 
 The player will have a starting hand sum of $5000. So bet wisely and become the next billionare! Or go broke, and try again! After all, if you start betting from $1, you are only 30 wins away from being a billionaire!
 
-Note: The player balance will only update after a new round has begun
+*Note: The player balance will only update after a new round has begun
 
-References:
+
+References
+
+Java AWT API: https://docs.oracle.com/javase/8/docs/api/java/awt/package-summary.html
+
+Java Swing API: https://docs.oracle.com/javase/8/docs/api/index.html?javax/swing/package-summary.html
 
 Card images sourced from Waste.org. Available at: https://www.waste.org/~oxymoron/files/cards/. Accessed on 27 March 2024.
 
