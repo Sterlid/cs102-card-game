@@ -24,7 +24,7 @@ public class Game {
     public Card drawCard(Player p){
             Card card = deck.remove(deck.size() - 1);
             p.setSum(p.getSum() + card.getValue());
-            p.setAceCount(p.getAceCount() + (card.isAce() ? 1 : 0));
+            p.setAceCount(p.getAceCount() + card.isAce());
             p.getHand().add(card);
 
         return card;
