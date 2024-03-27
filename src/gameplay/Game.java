@@ -20,13 +20,11 @@ public class Game {
         }
     }
 
- // draws 1 card
+    // draws 1 card
     public Card drawCard(Player p){
             Card card = deck.remove(deck.size() - 1);
             p.setSum(p.getSum() + card.getValue());
-            if(card instanceof Ace){
-            p.setAceCount(p.getAceCount() + 1);
-            }
+            p.setAceCount(p.getAceCount() + (card.isAce() ? 1 : 0));
             p.getHand().add(card);
 
         return card;
@@ -61,11 +59,9 @@ public class Game {
     
     // Change the ace points from 11 to 1 based on condition of hand sum for player
     public int recountPlayerSum(Player p) {
-        for (Card currentCard : p.getHand()) {
-            if(currentCard instanceof Ace && p.getSum() > 21){
-            p.setSum(Ace.getLowerValue());
+        while (p.getSum() > 21 && p.getAceCount() > 0) {
+            p.setSum(p.getSum() - 10);
             p.setAceCount(p.getAceCount() - 1);
-            }
         }
 
         System.out.println("recountPlayerSum() method ran successfully");
