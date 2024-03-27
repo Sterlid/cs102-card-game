@@ -1,4 +1,4 @@
-Welcome to our Blackjack card game! You might be wondering, why did we choose Blackjack? Initially, we were unsure what game we should create. So we went to YouTube for some inspiration. After some research, we found a Blackjack project done by Kenny Yip Coding in Youtube. Inspired by the simplicity of his project's UI and his straightforward logic, we decided to create our own. We implemented a similar UI design with his project, but we opted for a more thorough and complete logic, as Blackjack actually has a lot of rules!
+Welcome to our Blackjack card game! You might be wondering, why did we choose Blackjack? Initially, we were unsure what game we should create. So we went to YouTube for some inspiration. After some research, we found a Blackjack project done by Kenny Yip Coding in Youtube. Inspired by the simplicity of his project's UI and his straightforward logic, we decided to create our own Blackjack game. We implemented a similar UI design with his project, but we opted for a more thorough and complete logic, as Blackjack actually has a lot of rules!
 
 Here are the rules and rewards for our game!
 
