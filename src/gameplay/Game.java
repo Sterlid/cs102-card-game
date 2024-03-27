@@ -20,11 +20,13 @@ public class Game {
         }
     }
 
-    // draws 1 card
+ // draws 1 card
     public Card drawCard(Player p){
             Card card = deck.remove(deck.size() - 1);
             p.setSum(p.getSum() + card.getValue());
-            p.setAceCount(p.getAceCount() + card.isAce());
+            if(card instanceof Ace){
+            p.setAceCount(p.getAceCount() + 1);
+            }
             p.getHand().add(card);
 
         return card;
