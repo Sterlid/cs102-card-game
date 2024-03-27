@@ -26,6 +26,7 @@ Here are the rewards below:
 
 The player will have a starting hand sum of $5000. So bet wisely and become the next billionare! Or go broke, and try again! After all, if you start betting from $1, you are only 30 wins away from being a billionaire!
 
+Note: The player balance will only update after a new round has begun
 
 References:
 
