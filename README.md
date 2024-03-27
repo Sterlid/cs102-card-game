@@ -1,6 +1,6 @@
 This is your chance to win it all, or lose big! Surely, you are a winner, right? Only quitters will claim that gambling is an addiction. Come indulge into the world of Blackjack and reign supreme! The rules are straightforward, but the stakes are high!
 
-Inspired by simple UI design and straightforward architecture of Kenny Yip Coding, we built upon the foundations of his project to create our own blackjack, with some more twists and turns that you can find out for yourself!
+Inspired by simple UI design and straightforward architecture of Kenny Yip Coding, we built upon the foundations of his project to create our own blackjack, with our own complexities so everyone can enjoy a fun game of Blackjack!
 
 Here are the rules and rewards for our game!
 
