@@ -1,4 +1,6 @@
-Welcome to our Blackjack card game! You might be wondering, why did we choose Blackjack? Initially, we were unsure what game we should create. So we went to YouTube for some inspiration. After some research, we found a Blackjack project done by Kenny Yip Coding in Youtube. Inspired by the simplicity of his project's UI and his straightforward logic, we decided to create our own Blackjack game. We implemented a similar UI design with his project, but we opted for a more thorough and complete logic, as Blackjack actually has a lot of rules!
+This is your chance to win it all, or lose big! Surely, you are a winner, right? Only quitters will claim that gambling is an addiction. Come indulge into the world of Blackjack and reign supreme! The rules are straightforward, but the stakes are high!
+
+Inspired by simple UI design and straightforward architecture of Kenny Yip Coding, we built upon the foundations of his project to create our own blackjack, with some more twists and turns that you can find out for yourself!
 
 Here are the rules and rewards for our game!
 
@@ -18,11 +20,11 @@ Below we describe our rules:
 11) You LOSE if your hand sum is smaller than the dealer OR you exceed 21 and the dealer stays at 21 or below.
 
 Here are the rewards below:
-1) If you win, you receive 2 times your bet money.
-2) If you lose, you lose your bet money.
-3) If its a tie, you receive back your bet money.
+1) If you win, you receive 2 times the amount of your bet.
+2) If you lose, you lose the amount you bet.
+3) If its a tie, you receive back your bet amount.
 
-The player will have a starting hand sum of $5000. So bet wisely and try to become the next billionare! Or go broke, and try again...
+The player will have a starting hand sum of $5000. So bet wisely and become the next billionare! Or go broke, and try again! After all, if you start betting from $1, you are only 30 wins away from being a billionaire!
 
 
 References:
